@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
 use App\Repository\GroupRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -26,6 +28,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * )
  * @ORM\Entity(repositoryClass=GroupRepository::class)
  * @ORM\Table(name="`group`")
+ * @ApiFilter(PropertyFilter::class)
  */
 class Group
 {
@@ -49,10 +52,16 @@ class Group
      */
     private $groupMembers;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="groep")
+     */
+    private $events;
+
 
     public function __construct()
     {
         $this->groupMembers = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -74,6 +83,7 @@ class Group
 
     /**
      * @return Collection|User[]
+     * @Groups({"group:read"})
      */
     public function getGroupMembers(): Collection
     {
@@ -110,4 +120,36 @@ class Group
 //        return $this;
 //    }
 
+
+/**
+ * @return Collection|Event[]
+ * @Groups({"group:read"})
+ */
+public function getEvents(): Collection
+{
+    return $this->events;
+}
+
+public function addEvent(Event $event): self
+{
+    if (!$this->events->contains($event)) {
+        $this->events[] = $event;
+        $event->setGroep($this);
+    }
+
+    return $this;
+}
+
+public function removeEvent(Event $event): self
+{
+    if ($this->events->contains($event)) {
+        $this->events->removeElement($event);
+        // set the owning side to null (unless already changed)
+        if ($event->getGroep() === $this) {
+            $event->setGroep(null);
+        }
+    }
+
+    return $this;
+}
 }

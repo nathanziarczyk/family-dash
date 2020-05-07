@@ -89,9 +89,15 @@ class User implements UserInterface
      */
     private $groupMembers;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="attendants")
+     */
+    private $events;
+
     public function __construct()
     {
         $this->groupMembers = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -273,4 +279,32 @@ class User implements UserInterface
 //
 //        return $this;
 //    }
+
+
+/**
+ * @return Collection|Event[]
+ */
+public function getEvents(): Collection
+{
+    return $this->events;
 }
+
+public function addEvent(Event $event): self
+{
+    if (!$this->events->contains($event)) {
+        $this->events[] = $event;
+        $event->addAttendant($this);
+    }
+
+    return $this;
+}
+
+public function removeEvent(Event $event): self
+{
+    if ($this->events->contains($event)) {
+        $this->events->removeElement($event);
+        $event->removeAttendant($this);
+    }
+
+    return $this;
+}}
