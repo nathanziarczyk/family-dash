@@ -7,6 +7,8 @@ use App\Repository\GroupRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -19,6 +21,8 @@ use Doctrine\ORM\Mapping as ORM;
  *     "put",
  *     "delete"
  *      },
+ *     normalizationContext={"groups"={"group:read"}},
+ *     denormalizationContext={"groups"={"group:write"}},
  * )
  * @ORM\Entity(repositoryClass=GroupRepository::class)
  * @ORM\Table(name="`group`")
@@ -29,11 +33,14 @@ class Group
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"group:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"group:read", "group:write"})
+     * @Assert\NotBlank()
      */
     private $name;
 

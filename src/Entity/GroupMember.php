@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\GroupMemberRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -32,12 +33,14 @@ class GroupMember
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="groupMembers")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank()
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Group::class, inversedBy="groupMembers")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank()
      */
     private $groep;
 
