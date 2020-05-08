@@ -297,7 +297,7 @@ public function addEvent(Event $event): self
 {
     if (!$this->events->contains($event)) {
         $this->events[] = $event;
-        $event->addAttendant($this);
+        $event->setNewAttendant($this);
     }
 
     return $this;
