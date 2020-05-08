@@ -57,11 +57,17 @@ class Group
      */
     private $events;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Note::class, mappedBy="groep")
+     */
+    private $notes;
+
 
     public function __construct()
     {
         $this->groupMembers = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->notes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -147,6 +153,37 @@ public function removeEvent(Event $event): self
         // set the owning side to null (unless already changed)
         if ($event->getGroep() === $this) {
             $event->setGroep(null);
+        }
+    }
+
+    return $this;
+}
+
+/**
+ * @return Collection|Note[]
+ */
+public function getNotes(): Collection
+{
+    return $this->notes;
+}
+
+public function addNote(Note $note): self
+{
+    if (!$this->notes->contains($note)) {
+        $this->notes[] = $note;
+        $note->setGroep($this);
+    }
+
+    return $this;
+}
+
+public function removeNote(Note $note): self
+{
+    if ($this->notes->contains($note)) {
+        $this->notes->removeElement($note);
+        // set the owning side to null (unless already changed)
+        if ($note->getGroep() === $this) {
+            $note->setGroep(null);
         }
     }
 

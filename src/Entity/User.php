@@ -98,10 +98,16 @@ class User implements UserInterface
 
     private $encoder;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Note::class, mappedBy="user")
+     */
+    private $notes;
+
     public function __construct()
     {
         $this->groupMembers = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->notes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -308,6 +314,37 @@ public function removeEvent(Event $event): self
     if ($this->events->contains($event)) {
         $this->events->removeElement($event);
         $event->removeAttendant($this);
+    }
+
+    return $this;
+}
+
+/**
+ * @return Collection|Note[]
+ */
+public function getNotes(): Collection
+{
+    return $this->notes;
+}
+
+public function addNote(Note $note): self
+{
+    if (!$this->notes->contains($note)) {
+        $this->notes[] = $note;
+        $note->setUser($this);
+    }
+
+    return $this;
+}
+
+public function removeNote(Note $note): self
+{
+    if ($this->notes->contains($note)) {
+        $this->notes->removeElement($note);
+        // set the owning side to null (unless already changed)
+        if ($note->getUser() === $this) {
+            $note->setUser(null);
+        }
     }
 
     return $this;
