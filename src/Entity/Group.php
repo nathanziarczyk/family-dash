@@ -62,12 +62,18 @@ class Group
      */
     private $notes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ShoppingList::class, mappedBy="groep")
+     */
+    private $shoppingLists;
+
 
     public function __construct()
     {
         $this->groupMembers = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->notes = new ArrayCollection();
+        $this->shoppingLists = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -184,6 +190,37 @@ public function removeNote(Note $note): self
         // set the owning side to null (unless already changed)
         if ($note->getGroep() === $this) {
             $note->setGroep(null);
+        }
+    }
+
+    return $this;
+}
+
+/**
+ * @return Collection|ShoppingList[]
+ */
+public function getShoppingLists(): Collection
+{
+    return $this->shoppingLists;
+}
+
+public function addShoppingList(ShoppingList $shoppingList): self
+{
+    if (!$this->shoppingLists->contains($shoppingList)) {
+        $this->shoppingLists[] = $shoppingList;
+        $shoppingList->setGroep($this);
+    }
+
+    return $this;
+}
+
+public function removeShoppingList(ShoppingList $shoppingList): self
+{
+    if ($this->shoppingLists->contains($shoppingList)) {
+        $this->shoppingLists->removeElement($shoppingList);
+        // set the owning side to null (unless already changed)
+        if ($shoppingList->getGroep() === $this) {
+            $shoppingList->setGroep(null);
         }
     }
 

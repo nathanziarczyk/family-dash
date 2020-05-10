@@ -28,11 +28,11 @@ class CheckGroupAccesPreSerializeSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::VIEW => ['bookPreSerialize', EventPriorities::PRE_SERIALIZE],
+            KernelEvents::VIEW => ['checkGroupPreSerializer', EventPriorities::PRE_SERIALIZE],
         ];
     }
 
-    public function bookPreSerialize(ViewEvent $event)
+    public function checkGroupPreSerializer(ViewEvent $event)
     {
 //        dd($this->tokenStorage->getToken('jwt'));
         return;

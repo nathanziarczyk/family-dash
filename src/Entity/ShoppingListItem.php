@@ -3,25 +3,25 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\NoteRepository;
+use App\Repository\ShoppingListItemRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
  *     collectionOperations={
  *     "get",
  *     "post"
- * },
+ *      },
  *     itemOperations={
  *     "get",
- *     "put",
  *     "delete"
  *      },
+ *     normalizationContext={"groups"={"user:read"}},
+ *     denormalizationContext={"groups"={"user:write"}},
  * )
- * @ORM\Entity(repositoryClass=NoteRepository::class)
+ * @ORM\Entity(repositoryClass=ShoppingListItemRepository::class)
  */
-class Note
+class ShoppingListItem
 {
     /**
      * @ORM\Id()
@@ -32,39 +32,23 @@ class Note
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
      */
     private $title;
 
     /**
-     * @ORM\Column(type="text")
-     * @Assert\NotBlank()
-     */
-    private $body;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
-     */
-    private $shortBody;
-
-    /**
      * @ORM\Column(type="datetime")
-     * @Assert\NotBlank()
      */
     private $created;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Group::class, inversedBy="notes")
+     * @ORM\ManyToOne(targetEntity=ShoppingList::class, inversedBy="shoppingListItems")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank()
      */
-    private $groep;
+    private $shoppingList;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="notes")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="shoppingListItems")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank()
      */
     private $user;
 
@@ -85,30 +69,6 @@ class Note
         return $this;
     }
 
-    public function getBody(): ?string
-    {
-        return $this->body;
-    }
-
-    public function setBody(string $body): self
-    {
-        $this->body = $body;
-
-        return $this;
-    }
-
-    public function getShortBody(): ?string
-    {
-        return $this->shortBody;
-    }
-
-    public function setShortBody(string $shortBody): self
-    {
-        $this->shortBody = $shortBody;
-
-        return $this;
-    }
-
     public function getCreated(): ?\DateTimeInterface
     {
         return $this->created;
@@ -121,14 +81,14 @@ class Note
         return $this;
     }
 
-    public function getGroep(): ?Group
+    public function getShoppingList(): ?ShoppingList
     {
-        return $this->groep;
+        return $this->shoppingList;
     }
 
-    public function setGroep(?Group $groep): self
+    public function setShoppingList(?ShoppingList $shoppingList): self
     {
-        $this->groep = $groep;
+        $this->shoppingList = $shoppingList;
 
         return $this;
     }

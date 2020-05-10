@@ -103,11 +103,17 @@ class User implements UserInterface
      */
     private $notes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ShoppingListItem::class, mappedBy="user")
+     */
+    private $shoppingListItems;
+
     public function __construct()
     {
         $this->groupMembers = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->notes = new ArrayCollection();
+        $this->shoppingListItems = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -344,6 +350,37 @@ public function removeNote(Note $note): self
         // set the owning side to null (unless already changed)
         if ($note->getUser() === $this) {
             $note->setUser(null);
+        }
+    }
+
+    return $this;
+}
+
+/**
+ * @return Collection|ShoppingListItem[]
+ */
+public function getShoppingListItems(): Collection
+{
+    return $this->shoppingListItems;
+}
+
+public function addShoppingListItem(ShoppingListItem $shoppingListItem): self
+{
+    if (!$this->shoppingListItems->contains($shoppingListItem)) {
+        $this->shoppingListItems[] = $shoppingListItem;
+        $shoppingListItem->setUser($this);
+    }
+
+    return $this;
+}
+
+public function removeShoppingListItem(ShoppingListItem $shoppingListItem): self
+{
+    if ($this->shoppingListItems->contains($shoppingListItem)) {
+        $this->shoppingListItems->removeElement($shoppingListItem);
+        // set the owning side to null (unless already changed)
+        if ($shoppingListItem->getUser() === $this) {
+            $shoppingListItem->setUser(null);
         }
     }
 

@@ -12,6 +12,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class CustomApiTestCase extends ApiTestCase
 {
+    private $jwt;
+
     protected function createUser(string $email, string $password){
         $user = new User();
         $user->setEmail($email);
@@ -31,13 +33,14 @@ class CustomApiTestCase extends ApiTestCase
     }
 
     protected function logIn(Client $client, string $email, string $password){
-        $client->request('POST', '/login',[
+        $data = $client->request('POST', '/login',[
             'headers' => ['Content-Type' => 'application/json'],
             'json' => [
                 'username' => $email,
                 'password' => $password
             ]
         ]);
+        $this->setJwt(json_decode($data->getContent(), true)['token']);
     }
 
     protected function createUserAndLogIn(Client $client, string $email, string $password)
@@ -45,5 +48,15 @@ class CustomApiTestCase extends ApiTestCase
         $user = $this->createUser($email, $password);
         $this->logIn($client, $email, $password);
         return $user;
+    }
+
+    public function getJwt()
+    {
+        return $this->jwt;
+    }
+
+    public function setJwt($jwt): void
+    {
+        $this->jwt = $jwt;
     }
 }
