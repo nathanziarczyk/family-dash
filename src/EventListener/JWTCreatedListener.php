@@ -25,7 +25,7 @@ class JWTCreatedListener
     }
 
     /**
-     * De ID toevoegen aan de JWT
+     * De ID toevoegen aan de JWT payload
      * @param JWTCreatedEvent $event
      *
      * @return void

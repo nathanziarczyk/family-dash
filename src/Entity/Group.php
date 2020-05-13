@@ -8,7 +8,11 @@ use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
 use App\Repository\GroupRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Persistence\ObjectManagerAware;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Persistence\Mapping\ClassMetadata;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -20,8 +24,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      },
  *     itemOperations={
  *     "get",
- *     "put",
- *     "delete"
+ *     "put" = {
+ *     "denormalization_context"={"groups"={"group:item:put"}}
+ *     },
+ *     "delete",
  *      },
  *     normalizationContext={"groups"={"group:read"}},
  *     denormalizationContext={"groups"={"group:write"}},
@@ -30,7 +36,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="`group`")
  * @ApiFilter(PropertyFilter::class)
  */
-class Group
+class Group implements ObjectManagerAware
 {
     /**
      * @ORM\Id()
@@ -67,6 +73,16 @@ class Group
      */
     private $shoppingLists;
 
+    /**
+     * @var ObjectManager
+     */
+    private $em;
+
+
+    public function injectObjectManager(ObjectManager $objectManager, ClassMetadata $classMetadata): void
+    {
+        $this->em = $objectManager;
+    }
 
     public function __construct()
     {
@@ -93,6 +109,12 @@ class Group
         return $this;
     }
 
+    /** ************************************** */
+    /***/                                   /***/
+    /***/           /* Members */           /***/
+    /***/                                   /***/
+    /** ************************************** */
+
     /**
      * @return Collection|User[]
      * @Groups({"group:read"})
@@ -108,122 +130,65 @@ class Group
         return new ArrayCollection($members);
     }
 
+    /**
+     * @Groups({"group:item:put"})
+     * @param User $user
+     * @return Group
+     */
+    public function setAddGroupMember(User $user): self
+    {
+        $groupMember = new GroupMember();
+        $groupMember->setGroep($this);
+        $groupMember->setUser($user);
+        $this->groupMembers->add($groupMember);
+        $this->em->persist($groupMember);
+        $this->em->flush();
 
-//    public function addGroupMember(GroupMember $groupMember): self
-//    {
-//        if (!$this->groupMembers->contains($groupMember)) {
-//            $this->groupMembers[] = $groupMember;
-//            $groupMember->setGroep($this);
-//        }
-//
-//        return $this;
-//    }
-//
-//    public function removeGroupMember(GroupMember $groupMember): self
-//    {
-//        if ($this->groupMembers->contains($groupMember)) {
-//            $this->groupMembers->removeElement($groupMember);
-//            // set the owning side to null (unless already changed)
-//            if ($groupMember->getGroep() === $this) {
-//                $groupMember->setGroep(null);
-//            }
-//        }
-//
-//        return $this;
-//    }
-
-
-/**
- * @return Collection|Event[]
- * @Groups({"group:read"})
- */
-public function getEvents(): Collection
-{
-    return $this->events;
-}
-
-public function addEvent(Event $event): self
-{
-    if (!$this->events->contains($event)) {
-        $this->events[] = $event;
-        $event->setGroep($this);
+        return $this;
     }
 
-    return $this;
-}
+    /** ************************************** */
+    /***/                                   /***/
+    /***/           /* Events */            /***/
+    /***/                                   /***/
+    /** ************************************** */
 
-public function removeEvent(Event $event): self
-{
-    if ($this->events->contains($event)) {
-        $this->events->removeElement($event);
-        // set the owning side to null (unless already changed)
-        if ($event->getGroep() === $this) {
-            $event->setGroep(null);
-        }
+    /**
+     * @return Collection|Event[]
+     * @Groups({"group:read"})
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
     }
 
-    return $this;
-}
+    /** ************************************** */
+    /***/                                   /***/
+    /***/           /* Notes */             /***/
+    /***/                                   /***/
+    /** ************************************** */
 
-/**
- * @return Collection|Note[]
- */
-public function getNotes(): Collection
-{
-    return $this->notes;
-}
-
-public function addNote(Note $note): self
-{
-    if (!$this->notes->contains($note)) {
-        $this->notes[] = $note;
-        $note->setGroep($this);
+    /**
+     * @return Collection|Note[]
+     * @Groups({"group:read"})
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
     }
 
-    return $this;
-}
+    /** ************************************** */
+    /***/                                   /***/
+    /***/           /* Shop */              /***/
+    /***/                                   /***/
+    /** ************************************** */
 
-public function removeNote(Note $note): self
-{
-    if ($this->notes->contains($note)) {
-        $this->notes->removeElement($note);
-        // set the owning side to null (unless already changed)
-        if ($note->getGroep() === $this) {
-            $note->setGroep(null);
-        }
+    /**
+     * @return Collection|ShoppingList[]
+     * @Groups({"group:read"})
+     */
+    public function getShoppingLists(): Collection
+    {
+        return $this->shoppingLists;
     }
-
-    return $this;
-}
-
-/**
- * @return Collection|ShoppingList[]
- */
-public function getShoppingLists(): Collection
-{
-    return $this->shoppingLists;
-}
-
-public function addShoppingList(ShoppingList $shoppingList): self
-{
-    if (!$this->shoppingLists->contains($shoppingList)) {
-        $this->shoppingLists[] = $shoppingList;
-        $shoppingList->setGroep($this);
-    }
-
-    return $this;
-}
-
-public function removeShoppingList(ShoppingList $shoppingList): self
-{
-    if ($this->shoppingLists->contains($shoppingList)) {
-        $this->shoppingLists->removeElement($shoppingList);
-        // set the owning side to null (unless already changed)
-        if ($shoppingList->getGroep() === $this) {
-            $shoppingList->setGroep(null);
-        }
-    }
-
-    return $this;
-}
 }

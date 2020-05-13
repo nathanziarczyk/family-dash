@@ -21,7 +21,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * },
  *     itemOperations={
  *     "get",
- *     "put",
+ *     "put" = {
+ *     "denormalization_context"={"groups"={"user:item:put"}}
+ *     },
  *     "delete"
  *      },
  *     normalizationContext={"groups"={"user:read"}},
@@ -108,12 +110,18 @@ class User implements UserInterface
      */
     private $shoppingListItems;
 
+    /**
+     * @var ArrayCollection
+     */
+    private $invitations;
+
     public function __construct()
     {
         $this->groupMembers = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->notes = new ArrayCollection();
         $this->shoppingListItems = new ArrayCollection();
+        $this->invitations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -244,7 +252,14 @@ class User implements UserInterface
         return $this;
     }
 
+    /** ************************************** */
+    /***/                                   /***/
+    /***/           /* Group */             /***/
+    /***/                                   /***/
+    /** ************************************** */
+
     /**
+     * Geaccepteerde groepen ophalen
      * @return Collection|Group[]
      * @Groups({"user:read"})
      */
@@ -252,137 +267,153 @@ class User implements UserInterface
     {
         $groups = array();
         foreach($this->groupMembers as $group){
-            $groups[] = $group->getGroep();
+            if($group->getAccepted() === true){
+                $groups[] = $group->getGroep();
+            }
         }
         return new ArrayCollection($groups);
     }
 
     /**
-     * @return Collection|GroupMember[]
+     * Nog niet geaccepteerde uitnodigingen ophalen
      * @Groups({"user:read"})
      */
     public function getInvitations(): Collection
     {
-        $invitations = array();
+        $invitations = [];
         if ($this->groupMembers->isEmpty()) return new ArrayCollection();
         foreach($this->groupMembers as $group){
             if ($group->getAccepted() === false){
                 $invitations[] = $group;
             }
         }
-        return new ArrayCollection($invitations);
+        $this->invitations = new ArrayCollection($invitations);
+        return $this->invitations;
     }
 
-//    public function addGroupMember(GroupMember $groupMember): self
-//    {
-//        if (!$this->groupMembers->contains($groupMember)) {
-//            $this->groupMembers[] = $groupMember;
-//            $groupMember->setUser($this);
-//        }
-//
-//        return $this;
-//    }
-//
-//    public function removeGroupMember(GroupMember $groupMember): self
-//    {
-//        if ($this->groupMembers->contains($groupMember)) {
-//            $this->groupMembers->removeElement($groupMember);
-//            // set the owning side to null (unless already changed)
-//            if ($groupMember->getUser() === $this) {
-//                $groupMember->setUser(null);
-//            }
-//        }
-//
-//        return $this;
-//    }
-
-
-/**
- * @return Collection|Event[]
- */
-public function getEvents(): Collection
-{
-    return $this->events;
-}
-
-public function addEvent(Event $event): self
-{
-    if (!$this->events->contains($event)) {
-        $this->events[] = $event;
-        $event->setNewAttendant($this);
-    }
-
-    return $this;
-}
-
-public function removeEvent(Event $event): self
-{
-    if ($this->events->contains($event)) {
-        $this->events->removeElement($event);
-        $event->removeAttendant($this);
-    }
-
-    return $this;
-}
-
-/**
- * @return Collection|Note[]
- */
-public function getNotes(): Collection
-{
-    return $this->notes;
-}
-
-public function addNote(Note $note): self
-{
-    if (!$this->notes->contains($note)) {
-        $this->notes[] = $note;
-        $note->setUser($this);
-    }
-
-    return $this;
-}
-
-public function removeNote(Note $note): self
-{
-    if ($this->notes->contains($note)) {
-        $this->notes->removeElement($note);
-        // set the owning side to null (unless already changed)
-        if ($note->getUser() === $this) {
-            $note->setUser(null);
+    /**
+     * Uitnodiging accepteren
+     * @Groups({"user:item:put"})
+     * @param Group $group
+     * @return User
+     */
+    public function setAcceptGroupRequest(Group $group): self
+    {
+        $invitations = $this->getInvitations();
+        foreach ($invitations as $invitation){
+            if($invitation->getGroep()->getId() === $group->getId()){
+                $invitation->setAccepted(true);
+                $this->invitations->removeElement($invitation);
+            }
         }
+        return $this;
     }
 
-    return $this;
-}
+    /** ************************************** */
+    /***/                                   /***/
+    /***/           /* Events */            /***/
+    /***/                                   /***/
+    /** ************************************** */
 
-/**
- * @return Collection|ShoppingListItem[]
- */
-public function getShoppingListItems(): Collection
-{
-    return $this->shoppingListItems;
-}
-
-public function addShoppingListItem(ShoppingListItem $shoppingListItem): self
-{
-    if (!$this->shoppingListItems->contains($shoppingListItem)) {
-        $this->shoppingListItems[] = $shoppingListItem;
-        $shoppingListItem->setUser($this);
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
     }
 
-    return $this;
-}
-
-public function removeShoppingListItem(ShoppingListItem $shoppingListItem): self
-{
-    if ($this->shoppingListItems->contains($shoppingListItem)) {
-        $this->shoppingListItems->removeElement($shoppingListItem);
-        // set the owning side to null (unless already changed)
-        if ($shoppingListItem->getUser() === $this) {
-            $shoppingListItem->setUser(null);
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setNewAttendant($this);
         }
+
+        return $this;
     }
 
-    return $this;
-}}
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+            $event->removeAttendant($this);
+        }
+
+        return $this;
+    }
+
+    /** ************************************** */
+    /***/                                   /***/
+    /***/           /* Notes */             /***/
+    /***/                                   /***/
+    /** ************************************** */
+
+    /**
+     * @return Collection|Note[]
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Note $note): self
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes[] = $note;
+            $note->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $note): self
+    {
+        if ($this->notes->contains($note)) {
+            $this->notes->removeElement($note);
+            // set the owning side to null (unless already changed)
+            if ($note->getUser() === $this) {
+                $note->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /** ************************************** */
+    /***/                                   /***/
+    /***/           /* Shop */              /***/
+    /***/                                   /***/
+    /** ************************************** */
+
+    /**
+     * @return Collection|ShoppingListItem[]
+     */
+    public function getShoppingListItems(): Collection
+    {
+        return $this->shoppingListItems;
+    }
+
+    public function addShoppingListItem(ShoppingListItem $shoppingListItem): self
+    {
+        if (!$this->shoppingListItems->contains($shoppingListItem)) {
+            $this->shoppingListItems[] = $shoppingListItem;
+            $shoppingListItem->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShoppingListItem(ShoppingListItem $shoppingListItem): self
+    {
+        if ($this->shoppingListItems->contains($shoppingListItem)) {
+            $this->shoppingListItems->removeElement($shoppingListItem);
+            // set the owning side to null (unless already changed)
+            if ($shoppingListItem->getUser() === $this) {
+                $shoppingListItem->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+}

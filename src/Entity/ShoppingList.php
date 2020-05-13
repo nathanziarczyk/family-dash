@@ -7,6 +7,7 @@ use App\Repository\ShoppingListRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
@@ -19,6 +20,8 @@ use Doctrine\ORM\Mapping as ORM;
  *     "put",
  *     "delete"
  *      },
+ *     normalizationContext={"groups"={"shoppingList:read"}},
+ *     denormalizationContext={"groups"={"shoppingList:write"}},
  * )
  * @ORM\Entity(repositoryClass=ShoppingListRepository::class)
  */
@@ -28,11 +31,13 @@ class ShoppingList
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"group:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"group:read"})
      */
     private $title;
 
@@ -44,6 +49,7 @@ class ShoppingList
 
     /**
      * @ORM\OneToMany(targetEntity=ShoppingListItem::class, mappedBy="shoppingList")
+     * @Groups({"shoppingList:write"})
      */
     private $shoppingListItems;
 

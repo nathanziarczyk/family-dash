@@ -14,7 +14,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(
  *     collectionOperations={
- *     "get",
  *     "post"
  *      },
  *     itemOperations={
@@ -73,7 +72,7 @@ class Event
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, inversedBy="events")
-     * @Groups({"event:read", "group:read"})
+     * @Groups({"event:read", "group:read", "user:read"})
      */
     private $attendants;
 

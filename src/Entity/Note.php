@@ -3,8 +3,10 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Helper\ShortenHtmlTrait;
 use App\Repository\NoteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -23,34 +25,41 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Note
 {
+    use ShortenHtmlTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"group:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
+     * @Groups({"group:read"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
+     * @Groups({"group:read"})
      */
     private $body;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
+     * @Groups({"group:read"})
      */
     private $shortBody;
 
     /**
      * @ORM\Column(type="datetime")
      * @Assert\NotBlank()
+     * @Groups({"group:read"})
      */
     private $created;
 
@@ -102,9 +111,14 @@ class Note
         return $this->shortBody;
     }
 
-    public function setShortBody(string $shortBody): self
+    public function setShortBody(): self
     {
-        $this->shortBody = $shortBody;
+        if(strlen($this->getBody()) <= 50){
+            $this->shortBody = $this->getBody();
+        } else {
+            // TODO checken of dit werkt
+            $this->shortBody = $this->truncate($this->getBody(), 50);
+        }
 
         return $this;
     }
