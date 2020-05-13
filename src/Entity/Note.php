@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Helper\ShortenHtmlTrait;
 use App\Repository\NoteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -55,15 +56,14 @@ class Note
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
      * @Groups({"group:read", "note:read"})
      */
     private $shortBody;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\NotBlank()
-     * @Groups({"group:read", "note:read", "note:write"})
+     * @Groups({"group:read", "note:read"})
+     * @Gedmo\Timestampable(on="create")
      */
     private $created;
 
@@ -108,7 +108,7 @@ class Note
     public function setBody(string $body): self
     {
         $this->body = $body;
-
+        $this->shortBody = $body;
         return $this;
     }
 
@@ -117,28 +117,9 @@ class Note
         return $this->shortBody;
     }
 
-    public function setShortBody(): self
-    {
-        if(strlen($this->getBody()) <= 50){
-            $this->shortBody = $this->getBody();
-        } else {
-            // TODO checken of dit werkt
-            $this->shortBody = $this->truncate($this->getBody(), 50);
-        }
-
-        return $this;
-    }
-
     public function getCreated(): ?\DateTimeInterface
     {
         return $this->created;
-    }
-
-    public function setCreated(\DateTimeInterface $created): self
-    {
-        $this->created = $created;
-
-        return $this;
     }
 
     public function getGroep(): ?Group

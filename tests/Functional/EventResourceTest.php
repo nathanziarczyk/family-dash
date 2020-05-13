@@ -13,7 +13,7 @@ class EventResourceTest extends CustomApiTestCase
 {
     use ReloadDatabaseTrait;
 
-    public function testCreateTask()
+    public function testCreateEvent()
     {
         $client = self::createClient();
 
