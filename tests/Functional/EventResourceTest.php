@@ -20,15 +20,18 @@ class EventResourceTest extends CustomApiTestCase
         $client->request('POST', '/api/events', [
             'headers' => ['Content-Type' => 'application/json'],
         ]);
-        self::assertResponseStatusCodeSame(400);
+        self::assertResponseStatusCodeSame(401);
 
         $this->createUserAndLogIn($client,'test@task.com', 'test');
         self::assertResponseIsSuccessful();
 
-        dd($client->request('POST', '/api/events', [
+        $this->createGroup($client, 'test');
+        self::assertResponseIsSuccessful();
+
+        $client->request('POST', '/api/events', [
+            'auth_bearer' => $this->getJwt(),
             'headers' => [
                 'Content-Type' => 'application/json',
-                'auth_bearer' => 'Bearer '.$this->getJwt()
             ],
             'json' => [
                 'title' => 'test event',
@@ -37,7 +40,7 @@ class EventResourceTest extends CustomApiTestCase
                 'end' => date('Y-m-d H:i:s'),
                 'groep' => '/api/groups/1'
             ]
-        ]));
-        self::assertResponseStatusCodeSame(400);
+        ]);
+        self::assertResponseIsSuccessful();
     }
 }

@@ -1,10 +1,10 @@
 register:
-  path: /register
+  path: /api/register
   controller: App\Controller\AuthController::register
   methods: POST
 
 login_check:
-  path:     /login
+  path:     /api/login
   methods:  [POST]
 
 #index:

@@ -17,9 +17,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  * },
  *     itemOperations={
  *     "get",
- *     "put",
+ *     "put" = {
+ *     "denormalization_context"={"groups"={"note:item:put"}}
+ *     },
  *     "delete"
  *      },
+ *     normalizationContext={"groups"={"note:read"}},
+ *     denormalizationContext={"groups"={"note:write"}},
  * )
  * @ORM\Entity(repositoryClass=NoteRepository::class)
  */
@@ -31,35 +35,35 @@ class Note
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"group:read"})
+     * @Groups({"group:read", "note:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
-     * @Groups({"group:read"})
+     * @Groups({"group:read", "note:read", "note:write", "note:item:put"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
-     * @Groups({"group:read"})
+     * @Groups({"group:read", "note:read", "note:write", "note:item:put"})
      */
     private $body;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
-     * @Groups({"group:read"})
+     * @Groups({"group:read", "note:read"})
      */
     private $shortBody;
 
     /**
      * @ORM\Column(type="datetime")
      * @Assert\NotBlank()
-     * @Groups({"group:read"})
+     * @Groups({"group:read", "note:read", "note:write"})
      */
     private $created;
 
@@ -67,6 +71,7 @@ class Note
      * @ORM\ManyToOne(targetEntity=Group::class, inversedBy="notes")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank()
+     * @Groups({"note:read", "note:write"})
      */
     private $groep;
 
@@ -74,6 +79,7 @@ class Note
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="notes")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank()
+     * @Groups({"note:read", "note:write"})
      */
     private $user;
 

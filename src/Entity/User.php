@@ -16,8 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ApiResource(
  *     collectionOperations={
- *     "get",
- *     "post"
+ *     "get"
  * },
  *     itemOperations={
  *     "get",
@@ -64,7 +63,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user:read", "user:write"})
+     * @Groups({"user:read", "user:write", "note:read"})
      * @Assert\NotBlank()
      */
     private $firstName;

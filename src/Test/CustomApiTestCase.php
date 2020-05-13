@@ -33,7 +33,7 @@ class CustomApiTestCase extends ApiTestCase
     }
 
     protected function logIn(Client $client, string $email, string $password){
-        $data = $client->request('POST', '/login',[
+        $data = $client->request('POST', '/api/login',[
             'headers' => ['Content-Type' => 'application/json'],
             'json' => [
                 'username' => $email,
@@ -41,6 +41,16 @@ class CustomApiTestCase extends ApiTestCase
             ]
         ]);
         $this->setJwt(json_decode($data->getContent(), true)['token']);
+    }
+
+    protected function createGroup(Client $client, string $name){
+        $data = $client->request('POST', '/api/groups',[
+            'auth_bearer' => $this->getJwt(),
+            'headers' => ['Content-Type' => 'application/json'],
+            'json' => [
+                'name' => $name
+            ]
+        ]);
     }
 
     protected function createUserAndLogIn(Client $client, string $email, string $password)
