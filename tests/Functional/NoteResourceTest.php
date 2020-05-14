@@ -40,6 +40,7 @@ class NoteResourceTest extends CustomApiTestCase
             ]
         ]);
         self::assertResponseIsSuccessful();
+
     }
 
 }
