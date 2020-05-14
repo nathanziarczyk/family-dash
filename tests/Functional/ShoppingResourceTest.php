@@ -1,18 +1,16 @@
 <?php
 
 
-namespace App\Tests\Functional;
+namespace App\Test;
 
 
-use App\Test\CustomApiTestCase;
 use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
 
-class NoteResourceTest extends CustomApiTestCase
+class ShoppingResourceTest extends CustomApiTestCase
 {
     use ReloadDatabaseTrait;
 
-    public function testCreateNote()
-    {
+    public function testCreateShoppingList(){
         $client = self::createClient();
 
         $client->request('POST', '/api/notes', [
@@ -28,14 +26,22 @@ class NoteResourceTest extends CustomApiTestCase
         ]);
         self::assertResponseIsSuccessful();
 
-        $client->request('POST', '/api/notes', [
-            'auth_bearer' => $this->getJwt(),
+        $client->request('POST', '/api/shopping_lists', [
             'headers' => ['Content-Type' => 'application/json'],
+            'auth_bearer' => $this->getJwt(),
             'json' => [
-                'title' => 'test',
-                'body' => '<p>This is a paragraph.</p>
-                           <p>This is another paragraph.</p>',
-                'groep' => '/api/groups/1',
+                'title' => 'test Shopping list',
+                'groep' => '/api/groups/1'
+            ]
+        ]);
+        self::assertResponseIsSuccessful();
+
+        $client->request('POST', '/api/shopping_list_items', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'auth_bearer' => $this->getJwt(),
+            'json' => [
+                'title' => 'test Shopping list Item',
+                'shoppingList' => '/api/shopping_lists/1',
                 'user' => '/api/users/1'
             ]
         ]);

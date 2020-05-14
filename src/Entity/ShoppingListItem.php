@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ShoppingListItemRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -41,6 +42,7 @@ class ShoppingListItem
     /**
      * @ORM\Column(type="datetime")
      * @Groups({"shoppingListItem:read"})
+     * @Gedmo\Timestampable(on="create")
      */
     private $created;
 
@@ -78,13 +80,6 @@ class ShoppingListItem
     public function getCreated(): ?\DateTimeInterface
     {
         return $this->created;
-    }
-
-    public function setCreated(\DateTimeInterface $created): self
-    {
-        $this->created = $created;
-
-        return $this;
     }
 
     public function getShoppingList(): ?ShoppingList

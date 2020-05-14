@@ -98,7 +98,7 @@ trait ShortenHtmlTrait
         if($considerHtml) {
             // close all unclosed html-tags
             foreach ($open_tags as $tag) {
-                $truncate .= '';
+                $truncate .= "</".$tag.">";
             }
         }
 

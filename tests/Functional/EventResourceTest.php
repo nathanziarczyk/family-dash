@@ -22,10 +22,7 @@ class EventResourceTest extends CustomApiTestCase
         ]);
         self::assertResponseStatusCodeSame(401);
 
-        $this->createUserAndLogIn($client,'test@task.com', 'test');
-        self::assertResponseIsSuccessful();
-
-        $this->createGroup($client, 'test');
+        $this->createUserAndLogInAndMakeGroup($client,'test@task.com', 'test', 'test-group');
         self::assertResponseIsSuccessful();
 
         $client->request('POST', '/api/events', [

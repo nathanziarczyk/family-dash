@@ -37,19 +37,19 @@ class ShoppingList
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"group:read"})
+     * @Groups({"group:read", "shoppingList:write"})
      */
     private $title;
 
     /**
      * @ORM\ManyToOne(targetEntity=Group::class, inversedBy="shoppingLists")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"shoppingList:write"})
      */
     private $groep;
 
     /**
      * @ORM\OneToMany(targetEntity=ShoppingListItem::class, mappedBy="shoppingList")
-     * @Groups({"shoppingList:write"})
      */
     private $shoppingListItems;
 

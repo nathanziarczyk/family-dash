@@ -108,7 +108,11 @@ class Note
     public function setBody(string $body): self
     {
         $this->body = $body;
-        $this->shortBody = $body;
+        if(strlen($body) > 50){
+            $this->shortBody = $this->truncate($body, 50, '...');
+        } else {
+            $this->shortBody = $body;
+        }
         return $this;
     }
 

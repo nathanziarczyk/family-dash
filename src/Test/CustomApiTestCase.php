@@ -53,10 +53,11 @@ class CustomApiTestCase extends ApiTestCase
         ]);
     }
 
-    protected function createUserAndLogIn(Client $client, string $email, string $password)
+    protected function createUserAndLogInAndMakeGroup(Client $client, string $email, string $password, string $groupName)
     {
         $user = $this->createUser($email, $password);
         $this->logIn($client, $email, $password);
+        $this->createGroup($client, $groupName);
         return $user;
     }
 
