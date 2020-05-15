@@ -1,0 +1,126 @@
+ocramius/package-versions: Generating version class...
+ocramius/package-versions: ...done generating version class
+
+e
+Package operations: 111 installs, 0 updates, 0 removals
+  - Installing ocramius/package-versions (1.5.1): Loading from cache
+  - Installing symfony/flex (v1.6.3): Loading from cache
+
+Prefetching 14 packages 
+  - Downloading (0%) (5%) (10%) (15%) (24%) (40%) (45%) (51%) (56%) (61%) (66%) (71%) (76%) (81%) (86%) (98%) (100%)
+
+  - Installing symfony/translation-contracts (v2.0.1): Loading from cache
+  - Installing symfony/polyfill-mbstring (v1.17.0): Loading from cache
+  - Installing symfony/validator (v5.0.8): Loading from cache
+  - Installing twig/twig (v3.0.3): Loading from cache
+  - Installing symfony/twig-bridge (v5.0.8): Loading from cache
+  - Installing symfony/polyfill-php73 (v1.17.0): Loading from cache
+  - Installing symfony/polyfill-intl-idn (v1.17.0): Loading from cache
+  - Installing symfony/mime (v5.0.8): Loading from cache
+  - Installing symfony/http-foundation (v5.0.8): Loading from cache
+  - Installing psr/event-dispatcher (1.0.0): Loading from cache
+  - Installing symfony/event-dispatcher-contracts (v2.0.1): Loading from cache
+  - Installing symfony/event-dispatcher (v5.0.8): Loading from cache
+  - Installing symfony/var-dumper (v5.0.8): Loading from cache
+    Skipped installation of bin Resources/bin/var-dump-server for package symfony/var-dumper: name conflicts with an existing file
+  - Installing psr/log (1.1.3): Loading from cache
+  - Installing symfony/error-handler (v5.0.8): Loading from cache
+  - Installing symfony/http-kernel (v5.0.8): Loading from cache
+  - Installing symfony/filesystem (v5.0.8): Loading from cache
+  - Installing symfony/config (v5.0.8): Loading from cache
+  - Installing symfony/twig-bundle (v5.0.8): Loading from cache
+  - Installing psr/container (1.0.0): Loading from cache
+  - Installing symfony/service-contracts (v2.0.1): Loading from cache
+  - Installing symfony/security-core (v5.0.8): Loading from cache
+  - Installing symfony/inflector (v5.0.8): Loading from cache
+  - Installing symfony/property-access (v5.0.8): Loading from cache
+  - Installing symfony/security-http (v5.0.8): Loading from cache
+  - Installing symfony/security-guard (v5.0.8): Loading from cache
+  - Installing symfony/security-csrf (v5.0.8): Loading from cache
+  - Installing symfony/dependency-injection (v5.0.8): Loading from cache
+  - Installing symfony/security-bundle (v5.0.8): Loading from cache
+  - Installing symfony/var-exporter (v5.0.8): Loading from cache
+  - Installing psr/cache (1.0.1): Loading from cache
+  - Installing symfony/cache-contracts (v2.0.1): Loading from cache
+  - Installing symfony/cache (v5.0.8): Loading from cache
+  - Installing symfony/expression-language (v5.0.8): Loading from cache
+  - Installing symfony/asset (v5.0.8): Loading from cache
+  - Installing webmozart/assert (1.8.0): Loading from cache
+  - Installing phpdocumentor/reflection-common (2.1.0): Loading from cache
+  - Installing phpdocumentor/type-resolver (1.1.0): Loading from cache
+  - Installing phpdocumentor/reflection-docblock (5.1.0): Loading from cache
+  - Installing symfony/routing (v5.0.8): Loading from cache
+  - Installing symfony/finder (v5.0.8): Loading from cache
+  - Installing symfony/framework-bundle (v5.0.8): Loading from cache
+  - Installing nelmio/cors-bundle (2.0.1): Loading from cache
+  - Installing symfony/console (v5.0.8): Loading from cache
+  - Installing doctrine/lexer (1.2.0): Loading from cache
+  - Installing doctrine/annotations (1.10.2): Loading from cache
+  - Installing doctrine/reflection (1.2.1): Loading from cache
+  - Installing doctrine/event-manager (1.1.0): Loading from cache
+  - Installing doctrine/collections (1.6.4): Loading from cache
+  - Installing doctrine/cache (1.10.0): Loading from cache
+  - Installing doctrine/persistence (1.3.7): Loading from cache
+  - Installing doctrine/instantiator (1.3.0): Loading from cache
+  - Installing doctrine/dbal (2.10.2): Loading from cache
+  - Installing doctrine/inflector (1.4.1): Loading from cache
+  - Installing doctrine/common (2.13.0): Loading from cache
+  - Installing doctrine/orm (v2.7.2): Loading from cache
+  - Installing symfony/doctrine-bridge (v5.0.8): Loading from cache
+  - Installing jdorn/sql-formatter (v1.2.17): Loading from cache
+  - Installing doctrine/doctrine-bundle (2.0.8): Loading from cache
+  - Installing willdurand/negotiation (v2.3.1): Loading from cache
+  - Installing psr/link (1.0.0): Loading from cache
+  - Installing symfony/web-link (v5.0.8): Loading from cache
+  - Installing symfony/serializer (v5.0.8): Loading from cache
+  - Installing symfony/property-info (v5.0.8): Loading from cache
+  - Installing fig/link-util (1.1.1): Loading from cache
+  - Installing api-platform/core (v2.5.5): Loading from cache
+  - Installing api-platform/api-pack (v1.2.2): Loading from cache
+  - Installing doctrine/data-fixtures (1.4.2): Loading from cache
+  - Installing doctrine/doctrine-fixtures-bundle (3.3.1): Loading from cache
+  - Installing symfony/stopwatch (v5.0.8): Loading from cache
+  - Installing laminas/laminas-zendframework-bridge (1.0.3): Loading from cache
+  - Installing laminas/laminas-eventmanager (3.2.1): Loading from cache
+  - Installing laminas/laminas-code (3.4.1): Loading from cache
+  - Installing ocramius/proxy-manager (2.2.3): Loading from cache
+  - Installing doctrine/migrations (2.2.1): Loading from cache
+  - Installing doctrine/doctrine-migrations-bundle (2.1.2): Loading from cache
+  - Installing behat/transliterator (v1.3.0): Loading from cache
+  - Installing gedmo/doctrine-extensions (v2.4.41): Loading from cache
+  - Installing namshi/jose (7.2.3): Loading from cache
+  - Installing lcobucci/jwt (3.3.1): Loading from cache
+  - Installing lexik/jwt-authentication-bundle (v2.6.5): Loading from cache
+  - Installing phpmailer/phpmailer (v6.1.5): Loading from cache
+  - Installing symfony/dotenv (v5.0.8): Loading from cache
+  - Installing nikic/php-parser (v4.4.0): Loading from cache
+  - Installing symfony/maker-bundle (v1.17.0): Loading from cache
+  - Installing monolog/monolog (2.0.2): Loading from cache
+  - Installing symfony/monolog-bridge (v5.0.8): Loading from cache
+  - Installing symfony/yaml (v5.0.8): Loading from cache
+  - Installing fzaninotto/faker (v1.9.1): Loading from cache
+  - Installing sebastian/recursion-context (4.0.0): Loading from cache
+  - Installing sebastian/exporter (4.0.0): Loading from cache
+  - Installing sebastian/diff (4.0.1): Loading from cache
+  - Installing sebastian/comparator (4.0.0): Loading from cache
+  - Installing myclabs/deep-copy (1.9.5): Loading from cache
+  - Installing nelmio/alice (v3.6.0): Loading from cache
+  - Installing theofidry/alice-data-fixtures (v1.1.2): Loading from cache
+  - Installing hautelook/alice-bundle (2.7.2): Loading from cache
+  - Installing symfony/web-profiler-bundle (v5.0.8): Loading from cache
+  - Installing symfony/profiler-pack (v1.0.4): Loading from cache
+  - Installing symfony/monolog-bundle (v3.5.0): Loading from cache
+  - Installing symfony/debug-bundle (v5.0.8): Loading from cache
+  - Installing symfony/debug-pack (v1.0.8): Loading from cache
+  - Installing symfony/dom-crawler (v5.0.8): Loading from cache
+  - Installing symfony/http-client-contracts (v2.0.1): Loading from cache
+  - Installing symfony/http-client (v5.0.8): Loading from cache
+  - Installing symfony/phpunit-bridge (v5.0.8): Loading from cache
+  - Installing symfony/css-selector (v5.0.8): Loading from cache
+  - Installing symfony/browser-kit (v5.0.8): Loading from cache
+  - Installing symfony/test-pack (v1.0.6): Loading from cache
+Generating autoload files
+59 packages you are using are looking for funding.
+Use the composer fund command to find out more!
+Executing script cache:clear [OK]
+Executing script assets:install public [OK]

@@ -2,6 +2,10 @@
 
 use Symfony\Component\Dotenv\Dotenv;
 
+// TODO DEV
+//require dirname(__DIR__).'/vendor/autoload.php';
+
+// TODO PROD
 require dirname(__DIR__).'/vendor/autoload.php';
 
 if (!class_exists(Dotenv::class)) {
