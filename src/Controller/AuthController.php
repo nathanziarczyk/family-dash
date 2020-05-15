@@ -28,7 +28,11 @@ class AuthController extends AbstractController
         $user->setRegKey('renew');
 
         $em->persist($user);
-        $em->flush();
+        try {
+            $em->flush();
+        } catch (\Exception $exception) {
+            return $this->json(['error' => $exception->getMessage()], 409);
+        }
 
         return $this->json(sprintf('User created'));
     }
