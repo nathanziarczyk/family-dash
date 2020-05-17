@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Helper\ShortenHtmlTrait;
 use App\Repository\NoteRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -33,7 +32,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Note
 {
-    use ShortenHtmlTrait;
 
     /**
      * @ORM\Id()
@@ -111,11 +109,14 @@ class Note
     public function setBody(string $body): self
     {
         $this->body = $body;
-        if(strlen($body) > 50){
-            $this->shortBody = $this->truncate($body, 50, '...');
-        } else {
-            $this->shortBody = $body;
-        }
+
+        return $this;
+    }
+
+    public function setShortBody(string $shortBody): self
+    {
+        $this->shortBody = $shortBody;
+
         return $this;
     }
 
