@@ -6,10 +6,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 
 // TODO DEV
-//require dirname(__DIR__).'/config/bootstrap.php';
+require dirname(__DIR__).'/config/bootstrap.php';
 
 // TODO PROD
-require 'system/config/bootstrap.php';
+//require 'system/config/bootstrap.php';
 
 if ($_SERVER['APP_DEBUG']) {
     umask(0000);
