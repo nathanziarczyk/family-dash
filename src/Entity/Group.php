@@ -62,7 +62,7 @@ class Group implements ObjectManagerAware
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"group:read", "group:write"})
+     * @Groups({"group:read", "group:write", "group:item:put"})
      * @Assert\NotBlank()
      */
     private $name;

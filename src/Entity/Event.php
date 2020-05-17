@@ -171,8 +171,11 @@ class Event
 
         return $this;
     }
-
-    public function removeAttendant(User $attendant): self
+    /**
+     * Een deelnemer verwijderen van een event
+     * @Groups("event:item:put")
+     */
+    public function setRemoveAttendant(User $attendant): self
     {
         if ($this->attendants->contains($attendant)) {
             $this->attendants->removeElement($attendant);

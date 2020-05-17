@@ -21,9 +21,6 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     "get"
  *      },
  *     itemOperations={
- *     "get" = {
- *          "security" = "is_granted('ROLE_USER') and object == user",
- *     },
  *     "put" = {
  *          "security" = "is_granted('ROLE_USER') and object == user",
  *          "denormalization_context"={"groups"={"user:item:put"}}
