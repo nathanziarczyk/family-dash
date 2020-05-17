@@ -11,13 +11,18 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+// TODO PUT DELETE ADMIN
 /**
  * @ApiResource(
  *     collectionOperations={
- *     "post"
+ *     "post"={
+ *          "security_post_denormalize"="is_granted('ROLE_USER') and user.getGroups().contains(object.getGroep())"
+ *      },
  *      },
  *     itemOperations={
- *     "get",
+ *     "get"={
+ *          "security" = "is_granted('ROLE_USER') and user.getGroups().contains(object.getGroep())",
+ *     },
  *     "put"={
  *     "denormalization_context"={"groups"={"event:item:put"}}
  *     },

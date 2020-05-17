@@ -22,14 +22,14 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *      },
  *     itemOperations={
  *     "get" = {
- *          "access_control" = "is_granted('ROLE_USER') and object == user",
+ *          "security" = "is_granted('ROLE_USER') and object == user",
  *     },
  *     "put" = {
- *          "access_control" = "is_granted('ROLE_USER') and object == user",
+ *          "security" = "is_granted('ROLE_USER') and object == user",
  *          "denormalization_context"={"groups"={"user:item:put"}}
  *     },
  *     "delete" = {
- *          "access_control" = "is_granted('ROLE_USER') and object == user",
+ *          "security" = "is_granted('ROLE_USER') and object == user",
  *     },
  *  },
  *     normalizationContext={"groups"={"user:read"}},

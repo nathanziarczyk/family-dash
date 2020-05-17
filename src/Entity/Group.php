@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
+use App\Repository\GroupMemberRepository;
 use App\Repository\GroupRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,11 +14,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\ObjectManager;
+use http\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Controller\NewGroupController;
 use App\Controller\GetGroupsController;
 
+// TODO PUT & DELETE ADMIN
 /**
  * @ApiResource(
  *     collectionOperations={
@@ -30,12 +33,15 @@ use App\Controller\GetGroupsController;
  *     },
  *     itemOperations={
  *     "get"={
- *          "access_control" = "is_granted('ROLE_USER') and user.getGroups().contains(object)",
+ *          "security" = "is_granted('ROLE_USER') and user.getGroups().contains(object)",
  *     },
  *     "put" = {
- *     "denormalization_context"={"groups"={"group:item:put"}}
+ *          "denormalization_context"={"groups"={"group:item:put"}},
+ *          "security_post_denormalize"="is_granted('ROLE_USER') and user.getGroups().contains(object)"
  *     },
- *     "delete",
+ *     "delete" = {
+ *          "security" = "is_granted('ROLE_USER') and user.getGroups().contains(object)",
+ *     },
  *      },
  *     normalizationContext={"groups"={"group:read"}},
  *     denormalizationContext={"groups"={"group:write"}},
@@ -141,9 +147,9 @@ class Group implements ObjectManagerAware
     /**
      * @Groups({"group:item:put"})
      * @param User $user
-     * @return Group
+     * @return ArrayCollection
      */
-    public function setAddGroupMember(User $user): self
+    public function setAddGroupMember(User $user): ArrayCollection
     {
         $groupMember = new GroupMember();
         $groupMember->setGroep($this);
@@ -152,7 +158,26 @@ class Group implements ObjectManagerAware
         $this->em->persist($groupMember);
         $this->em->flush();
 
-        return $this;
+        return $this->groupMembers;
+    }
+
+    /**
+     * @Groups({"group:item:put"})
+     * @param User $user
+     * @return
+     */
+    public function setRemoveGroupMember(User $user)
+    {
+        $member = $this->em->getRepository(GroupMember::class)->findBy([
+            'user' => $user,
+            'groep' => $this
+        ]);
+        if(!$member) throw new \InvalidArgumentException('This user is not a member of this group', 404);
+        $this->groupMembers->removeElement($member[0]);
+        $this->em->remove($member[0]);
+        $this->em->flush();
+
+        return $this->groupMembers;
     }
 
     /** ************************************** */

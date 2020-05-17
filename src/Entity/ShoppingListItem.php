@@ -8,14 +8,18 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+// TODO BEVEILIGEN
 /**
  * @ApiResource(
  *     collectionOperations={
- *     "get",
- *     "post"
+ *     "post"={
+ *          "security_post_denormalize"="is_granted('ROLE_USER') and user.getGroups().contains(object.getShoppingList().getGroep())"
+ *      },
  *      },
  *     itemOperations={
- *     "get",
+ *     "get"={
+ *          "security" = "is_granted('ROLE_USER') and user.getGroups().contains(object.getShoppingList().getGroep())",
+ *     },
  *     "delete"
  *      },
  *     normalizationContext={"groups"={"shoppingListItem:read"}},

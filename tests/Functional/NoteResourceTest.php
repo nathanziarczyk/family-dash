@@ -49,25 +49,27 @@ class NoteResourceTest extends CustomApiTestCase
 
     }
 
-    public function testUpdateNote()
-    {
-        $client = self::createClient();
-        $user = $this->createUser('test@test.test', 'test');
-        $this->logIn($client,'test@test.test', 'test');
-        $em = $this->getEntityManager();
 
-        $group = new Group();
-        $group->setName('test');
-        $group->setAddGroupMember($user);
-        $em->persist($group);
-
-        $note = new Note();
-        $note->setUser($user);
-        $note->setGroep('/api/groups/1');
-        $note->setTitle('testje');
-        $note->setBody('hallo');
-        $em->persist($note);
-        $em->flush();
-    }
+    // TODO
+//    public function testUpdateNote()
+//    {
+//        $client = self::createClient();
+//        $user = $this->createUser('test@test.test', 'test');
+//        $this->logIn($client,'test@test.test', 'test');
+//        $em = $this->getEntityManager();
+//
+//        $group = new Group();
+//        $group->setName('test');
+//        $group->setAddGroupMember($user);
+//        $em->persist($group);
+//
+//        $note = new Note();
+//        $note->setUser($user);
+//        $note->setGroep('/api/groups/1');
+//        $note->setTitle('testje');
+//        $note->setBody('hallo');
+//        $em->persist($note);
+//        $em->flush();
+//    }
 
 }
