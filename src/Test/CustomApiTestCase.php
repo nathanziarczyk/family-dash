@@ -12,7 +12,22 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class CustomApiTestCase extends ApiTestCase
 {
-    private $jwt;
+    private $jwtAuth;
+    private $jwtNoAuth;
+
+    protected function createUsersAndLogInAndMakeGroup(Client $client, string $username, string $password, string $groupName)
+    {
+        $emailAuth = $username.'1@test.com';
+        $emailNoAuth = $username.'2@test.com';
+
+        $userAuth = $this->createUser($emailAuth, $password);
+        $userNoAuth = $this->createUser($emailNoAuth, $password);
+
+        $this->logInAuth($client, $emailAuth, $password);
+        $this->logInNoAuth($client, $emailNoAuth, $password);
+
+        $this->createGroup($client, $groupName);
+    }
 
     protected function createUser(string $email, string $password){
         $user = new User();
@@ -32,7 +47,7 @@ class CustomApiTestCase extends ApiTestCase
         return $user;
     }
 
-    protected function logIn(Client $client, string $email, string $password){
+    protected function logInAuth(Client $client, string $email, string $password){
         $data = $client->request('POST', '/api/login',[
             'headers' => ['Content-Type' => 'application/json'],
             'json' => [
@@ -40,12 +55,23 @@ class CustomApiTestCase extends ApiTestCase
                 'password' => $password
             ]
         ]);
-        $this->setJwt(json_decode($data->getContent(), true)['token']);
+        $this->setJwtAuth(json_decode($data->getContent(), true)['token']);
+    }
+
+    protected function logInNoAuth(Client $client, string $email, string $password){
+        $data = $client->request('POST', '/api/login',[
+            'headers' => ['Content-Type' => 'application/json'],
+            'json' => [
+                'username' => $email,
+                'password' => $password
+            ]
+        ]);
+        $this->setJwtNoAuth(json_decode($data->getContent(), true)['token']);
     }
 
     protected function createGroup(Client $client, string $name){
         $data = $client->request('POST', '/api/groups',[
-            'auth_bearer' => $this->getJwt(),
+            'auth_bearer' => $this->getJwtAuth(),
             'headers' => ['Content-Type' => 'application/json'],
             'json' => [
                 'name' => $name
@@ -53,26 +79,29 @@ class CustomApiTestCase extends ApiTestCase
         ]);
     }
 
-    protected function createUserAndLogInAndMakeGroup(Client $client, string $email, string $password, string $groupName)
-    {
-        $user = $this->createUser($email, $password);
-        $this->logIn($client, $email, $password);
-        $this->createGroup($client, $groupName);
-        return $user;
-    }
-
     protected function getEntityManager(): EntityManagerInterface
     {
         return self::$container->get('doctrine')->getManager();
     }
 
-    public function getJwt()
+    public function getJwtAuth()
     {
-        return $this->jwt;
+        return $this->jwtAuth;
     }
 
-    public function setJwt($jwt): void
+    public function setJwtAuth($jwt): void
     {
-        $this->jwt = $jwt;
+        $this->jwtAuth = $jwt;
     }
+
+    public function getJwtNoAuth()
+    {
+        return $this->jwtNoAuth;
+    }
+
+    public function setJwtNoAuth($jwtNoAuth): void
+    {
+        $this->jwtNoAuth = $jwtNoAuth;
+    }
+
 }

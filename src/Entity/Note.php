@@ -14,16 +14,19 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     collectionOperations={
  *     "post"={
  *          "security_post_denormalize"="is_granted('ROLE_USER') and user.getGroups().contains(object.getGroep())"
- *      },
+ *          },
  *      },
  *     itemOperations={
  *     "get"={
- *          "security" = "is_granted('ROLE_USER') and user.getGroups().contains(object)",
- *     },
+ *          "security" = "is_granted('ROLE_USER') and user.getGroups().contains(object.getGroep())",
+ *          },
  *     "put" = {
- *     "denormalization_context"={"groups"={"note:item:put"}}
- *     },
- *     "delete"
+ *          "security" = "is_granted('ROLE_USER') and object.getUser() == user",
+ *          "denormalization_context"={"groups"={"note:item:put"}}
+ *          },
+ *     "delete"={
+ *          "security" = "is_granted('ROLE_USER') and object.getUser() == user",
+ *          },
  *      },
  *     normalizationContext={"groups"={"note:read"}},
  *     denormalizationContext={"groups"={"note:write"}},

@@ -18,9 +18,11 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 /**
  * @ApiResource(
  *     collectionOperations={
- *     "get"
+ *     "get",
+ *     "post",
  *      },
  *     itemOperations={
+ *     "get",
  *     "put" = {
  *          "security" = "is_granted('ROLE_USER') and object == user",
  *          "denormalization_context"={"groups"={"user:item:put"}}
