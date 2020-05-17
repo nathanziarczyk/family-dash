@@ -29,7 +29,9 @@ use App\Controller\GetGroupsController;
  *     },
  *     },
  *     itemOperations={
- *     "get",
+ *     "get"={
+ *          "access_control" = "is_granted('ROLE_USER') and user.getGroups().contains(object)",
+ *     },
  *     "put" = {
  *     "denormalization_context"={"groups"={"group:item:put"}}
  *     },
