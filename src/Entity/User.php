@@ -21,12 +21,17 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *     "get"
  *      },
  *     itemOperations={
- *     "get",
- *     "put" = {
- *     "denormalization_context"={"groups"={"user:item:put"}}
+ *     "get" = {
+ *          "access_control" = "is_granted('ROLE_USER') and object == user",
  *     },
- *     "delete"
- *      },
+ *     "put" = {
+ *          "access_control" = "is_granted('ROLE_USER') and object == user",
+ *          "denormalization_context"={"groups"={"user:item:put"}}
+ *     },
+ *     "delete" = {
+ *          "access_control" = "is_granted('ROLE_USER') and object == user",
+ *     },
+ *  },
  *     normalizationContext={"groups"={"user:read"}},
  *     denormalizationContext={"groups"={"user:write"}},
  * )

@@ -4,6 +4,8 @@
 namespace App\Tests\Functional;
 
 
+use App\Entity\Group;
+use App\Entity\Note;
 use App\Test\CustomApiTestCase;
 use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
 
@@ -45,6 +47,27 @@ class NoteResourceTest extends CustomApiTestCase
         ]);
         self::assertResponseIsSuccessful();
 
+    }
+
+    public function testUpdateNote()
+    {
+        $client = self::createClient();
+        $user = $this->createUser('test@test.test', 'test');
+        $this->logIn($client,'test@test.test', 'test');
+        $em = $this->getEntityManager();
+
+        $group = new Group();
+        $group->setName('test');
+        $group->setAddGroupMember($user);
+        $em->persist($group);
+
+        $note = new Note();
+        $note->setUser($user);
+        $note->setGroep('/api/groups/1');
+        $note->setTitle('testje');
+        $note->setBody('hallo');
+        $em->persist($note);
+        $em->flush();
     }
 
 }

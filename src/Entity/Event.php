@@ -155,6 +155,7 @@ class Event
     }
 
     /**
+     * Een deelnemer toevoegen aan een event
      * @Groups("event:item:put")
      */
     public function setNewAttendant(User $attendant): self

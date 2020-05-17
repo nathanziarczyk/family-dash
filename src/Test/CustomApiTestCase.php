@@ -61,6 +61,11 @@ class CustomApiTestCase extends ApiTestCase
         return $user;
     }
 
+    protected function getEntityManager(): EntityManagerInterface
+    {
+        return self::$container->get('doctrine')->getManager();
+    }
+
     public function getJwt()
     {
         return $this->jwt;
