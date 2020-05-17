@@ -16,11 +16,14 @@ use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Controller\NewGroupController;
+use App\Controller\GetGroupsController;
 
 /**
  * @ApiResource(
  *     collectionOperations={
- *     "get",
+ *     "get"={
+ *          "controller"=GetGroupsController::class
+ *     },
  *     "post"={
  *          "controller"=NewGroupController::class
  *     },

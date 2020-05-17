@@ -268,7 +268,6 @@ class User implements UserInterface
     /**
      * Geaccepteerde groepen ophalen
      * @return Collection|Group[]
-     * @Groups({"user:read"})
      */
     public function getGroups(): Collection
     {
@@ -283,7 +282,6 @@ class User implements UserInterface
 
     /**
      * Nog niet geaccepteerde uitnodigingen ophalen
-     * @Groups({"user:read"})
      */
     public function getInvitations(): Collection
     {
