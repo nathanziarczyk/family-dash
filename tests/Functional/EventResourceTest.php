@@ -17,14 +17,17 @@ class EventResourceTest extends CustomApiTestCase
     {
         $client = self::createClient();
 
+        /* Test of een Event kan aangemaakt worden zonder in te loggen, mag niet mogelijk zijn */
         $client->request('POST', '/api/events', [
             'headers' => ['Content-Type' => 'application/json'],
         ]);
         self::assertResponseStatusCodeSame(401);
 
+        /* User reg, login en groep aanmaken */
         $this->createUserAndLogInAndMakeGroup($client,'test@task.com', 'test', 'test-group');
         self::assertResponseIsSuccessful();
 
+        /* Testen of user een event kan aanmaken na login */
         $client->request('POST', '/api/events', [
             'auth_bearer' => $this->getJwt(),
             'headers' => [

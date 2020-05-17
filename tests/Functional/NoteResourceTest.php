@@ -15,19 +15,23 @@ class NoteResourceTest extends CustomApiTestCase
     {
         $client = self::createClient();
 
+        /* Test of een Note kan aangemaakt worden zonder in te loggen, mag niet mogelijk zijn */
         $client->request('POST', '/api/notes', [
             'headers' => ['Content-Type' => 'application/json'],
         ]);
         self::assertResponseStatusCodeSame(401);
 
+        /* User reg, login en groep aanmaken */
         $this->createUserAndLogInAndMakeGroup($client, 'test', 'test', 'test-group');
         self::assertResponseIsSuccessful();
 
+        /* Testen of geregistreerde user met JWT data kan opvragen */
         $client->request('GET', '/api/users', [
             'auth_bearer' => $this->getJwt()
         ]);
         self::assertResponseIsSuccessful();
 
+        /* Testen of geregistreerde user Note kan aanmaken na inloggen */
         $client->request('POST', '/api/notes', [
             'auth_bearer' => $this->getJwt(),
             'headers' => ['Content-Type' => 'application/json'],
