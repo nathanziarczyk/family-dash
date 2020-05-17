@@ -20,7 +20,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     "get"={
  *          "security" = "is_granted('ROLE_USER') and user.getGroups().contains(object.getShoppingList().getGroep())",
  *     },
- *     "delete"
+ *     "delete"={
+ *              "security" = "is_granted('ROLE_USER') and object.getUser() == user",
+ *          }
  *      },
  *     normalizationContext={"groups"={"shoppingListItem:read"}},
  *     denormalizationContext={"groups"={"shoppingListItem:write"}},
