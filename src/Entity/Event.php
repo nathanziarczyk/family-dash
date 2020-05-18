@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 // TODO PUT DELETE ADMIN
 /**
@@ -17,16 +18,19 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     collectionOperations={
  *     "post"={
  *          "security_post_denormalize"="is_granted('ROLE_USER') and user.getGroups().contains(object.getGroep())"
- *      },
+ *          },
  *      },
  *     itemOperations={
  *     "get"={
  *          "security" = "is_granted('ROLE_USER') and user.getGroups().contains(object.getGroep())",
- *     },
+ *          },
  *     "put"={
+ *          "security"="is_granted('ROLE_USER') and object.getUser() = user",
  *          "denormalization_context"={"groups"={"event:item:put"}}
- *     },
- *     "delete"
+ *          },
+ *     "delete"={
+ *          "security"="is_granted('ROLE_USER') and object.getUser() = user",
+ *          },
  *      },
  *     normalizationContext={"groups"={"event:read"}},
  *     denormalizationContext={"groups"={"event:write"}},
@@ -47,24 +51,28 @@ class Event
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"event:read", "event:write", "event:item:put", "group:read"})
+     * @Assert\NotBlank()
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"event:read", "event:write", "event:item:put", "group:read"})
+     * * @Assert\NotBlank()
      */
     private $description;
 
     /**
      * @ORM\Column(type="datetime")
      * @Groups({"event:read", "event:write", "event:item:put", "group:read"})
+     * * @Assert\NotBlank()
      */
     private $start;
 
     /**
      * @ORM\Column(type="datetime")
      * @Groups({"event:read", "event:write", "event:item:put", "group:read"})
+     * * @Assert\NotBlank()
      */
     private $end;
 
@@ -72,6 +80,7 @@ class Event
      * @ORM\ManyToOne(targetEntity=Group::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"event:read", "event:write"})
+     * @Assert\NotBlank()
      */
     private $groep;
 
@@ -80,6 +89,14 @@ class Event
      * @Groups({"event:read", "group:read", "user:read"})
      */
     private $attendants;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="createdEvents")
+     * @ORM\JoinColumn(nullable=false)
+     * @Groups({"event:read", "event:write", "group:read"})
+     * @Assert\NotBlank()
+     */
+    private $user;
 
     public function __construct()
     {
@@ -180,6 +197,18 @@ class Event
         if ($this->attendants->contains($attendant)) {
             $this->attendants->removeElement($attendant);
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

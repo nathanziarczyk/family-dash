@@ -38,7 +38,8 @@ class EventResourceTest extends CustomApiTestCase
                 'description' => 'test',
                 'start' => date('Y-m-d H:i:s'),
                 'end' => date('Y-m-d H:i:s'),
-                'groep' => '/api/groups/1'
+                'groep' => '/api/groups/1',
+                'user' => '/api/users/1'
             ]
         ]);
         self::assertResponseIsSuccessful();
@@ -81,7 +82,8 @@ class EventResourceTest extends CustomApiTestCase
                 'description' => 'test',
                 'start' => date('Y-m-d H:i:s'),
                 'end' => date('Y-m-d H:i:s'),
-                'groep' => '/api/groups/1'
+                'groep' => '/api/groups/1',
+                'user' => '/api/users/1'
             ]
         ]);
         self::assertResponseIsSuccessful();
@@ -97,10 +99,13 @@ class EventResourceTest extends CustomApiTestCase
                 'description' => 'test',
                 'start' => date('Y-m-d H:i:s'),
                 'end' => date('Y-m-d H:i:s'),
-                'groep' => '/api/groups/1'
+                'groep' => '/api/groups/1',
+                'user' => '/api/users/2'
             ]
         ]);
         self::assertResponseStatusCodeSame(403);
 
     }
+
+    // TODO PUT DELETE
 }
