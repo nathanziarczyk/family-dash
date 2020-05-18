@@ -17,8 +17,8 @@ class AuthController extends AbstractController
         $content = json_decode($request->getContent(), false);
         $email = $content->_username;
         $password = $content->_password;
-        $firstName = $content->firstName;
-        $lastName = $content->lastName;
+        $firstName = $content->first_name;
+        $lastName = $content->last_name;
 
         $user = new User();
         $user->setEmail($email);
@@ -31,7 +31,8 @@ class AuthController extends AbstractController
         try {
             $em->flush();
         } catch (\Exception $exception) {
-            return $this->json(['error' => $exception->getMessage()], 409);
+            if($exception->getPrevious()->getCode() === '23000') return $this->json(['error' => 'Duplicate entry for email'], 409);;
+            return $this->json(['error' => $exception->getMessage()], 500);
         }
 
         return $this->json(sprintf('User created'));

@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-// TODO PUT DELETE ADMIN
 /**
  * @ApiResource(
  *     collectionOperations={
@@ -25,7 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          "security" = "is_granted('ROLE_USER') and user.getGroups().contains(object.getGroep())",
  *          },
  *     "put"={
- *          "security"="is_granted('ROLE_USER') and object.getUser() = user",
+ *          "security"="is_granted('ROLE_USER') and user.getGroups().contains(object.getGroep())",
  *          "denormalization_context"={"groups"={"event:item:put"}}
  *          },
  *     "delete"={

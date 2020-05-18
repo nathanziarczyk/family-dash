@@ -105,6 +105,41 @@ class EventResourceTest extends CustomApiTestCase
         ]);
         self::assertResponseStatusCodeSame(403);
 
+        /* Attendant toevoegen */
+        $client->request('PUT', '/api/events/1', [
+            'auth_bearer' => $this->getJwtAuth(),
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+            'json' => [
+                'newAttendant' => '/api/users/1'
+            ]
+        ]);
+        self::assertResponseIsSuccessful();
+
+        /* Attendant verwijderen */
+        $client->request('PUT', '/api/events/1', [
+            'auth_bearer' => $this->getJwtAuth(),
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+            'json' => [
+                'removeAttendant' => '/api/users/1'
+            ]
+        ]);
+        self::assertResponseIsSuccessful();
+
+        /* Mag geen attendant kunnen toevoegen */
+        $client->request('PUT', '/api/events/1', [
+            'auth_bearer' => $this->getJwtNoAuth(),
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+            'json' => [
+                'newAttendant' => '/api/users/2'
+            ]
+        ]);
+        self::assertResponseStatusCodeSame(403);
     }
 
     // TODO PUT DELETE
