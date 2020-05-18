@@ -24,7 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "security" = "is_granted('ROLE_USER') and user.getGroups().contains(object.getGroep())",
  *     },
  *     "put"={
- *     "denormalization_context"={"groups"={"event:item:put"}}
+ *          "denormalization_context"={"groups"={"event:item:put"}}
  *     },
  *     "delete"
  *      },
