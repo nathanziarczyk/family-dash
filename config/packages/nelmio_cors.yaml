@@ -1,24 +1,26 @@
-nelmio_cors:
-    defaults:
-        origin_regex: true
-        allow_origin: ['*']
-        allow_methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE']
-        allow_headers: ['Content-Type', 'Authorization']
-        expose_headers: ['Link']
-        max_age: 3600
-    paths:
-        '^/api/':
-            allow_origin: ['*']
-            allow_headers: ['*']
-            allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
-            max_age: 3600
-        '^/api/login':
-            allow_origin: ['*']
-            allow_headers: ['*']
-            allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
-            max_age: 3600
-        '^/api/register':
-            allow_origin: ['*']
-            allow_headers: ['*']
-            allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
-            max_age: 3600
+# TODO ALLES IN COMMENT GEZET, TESTEN OF CORS WERKT
+#nelmio_cors:
+#    defaults:
+#        #TODO ORIGIN REGEX IN COMMENT GEZET, TESTEN OF CORS WERKT
+#        origin_regex: true
+#        allow_origin: ['*']
+#        allow_methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE']
+#        allow_headers: ['Content-Type', 'Authorization']
+#        expose_headers: ['Link']
+#        max_age: 3600
+#    paths:
+#        '^/api/':
+#            allow_origin: ['*']
+#            allow_headers: ['*']
+#            allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
+#            max_age: 3600
+#        '^/api/login':
+#            allow_origin: ['*']
+#            allow_headers: ['*']
+#            allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
+#            max_age: 3600
+#        '^/api/register':
+#            allow_origin: ['*']
+#            allow_headers: ['*']
+#            allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
+#            max_age: 3600
