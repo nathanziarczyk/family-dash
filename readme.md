@@ -9,7 +9,7 @@ Dit is de API voor mijn eindwerk voor de opleiding **Full Stack Developer** op *
 **Symfony 5**<br/>
 **Doctrine**<br/>
 **API Platform**<br/>
-**Nelmio CORS bundle*<br/>*
+**Nelmio CORS bundle**<br/>
 **Nelmio Alice Bundle**<br/>
 **Lexik JWT Bundle**<br/>
 **Gesdinet JWT Refresh Bundle**<br/>
