@@ -2,13 +2,9 @@ ocramius/package-versions: Generating version class...
 ocramius/package-versions: ...done generating version class
 
 e
-Package operations: 111 installs, 0 updates, 0 removals
+Package operations: 112 installs, 0 updates, 0 removals
   - Installing ocramius/package-versions (1.5.1): Loading from cache
   - Installing symfony/flex (v1.6.3): Loading from cache
-
-Prefetching 14 packages 
-  - Downloading (0%) (5%) (10%) (15%) (24%) (40%) (45%) (51%) (56%) (61%) (66%) (71%) (76%) (81%) (86%) (98%) (100%)
-
   - Installing symfony/translation-contracts (v2.0.1): Loading from cache
   - Installing symfony/polyfill-mbstring (v1.17.0): Loading from cache
   - Installing symfony/validator (v5.0.8): Loading from cache
@@ -97,6 +93,7 @@ Prefetching 14 packages
   - Installing symfony/maker-bundle (v1.17.0): Loading from cache
   - Installing monolog/monolog (2.0.2): Loading from cache
   - Installing symfony/monolog-bridge (v5.0.8): Loading from cache
+  - Installing symfony/serializer-pack (v1.0.3): Loading from cache
   - Installing symfony/yaml (v5.0.8): Loading from cache
   - Installing fzaninotto/faker (v1.9.1): Loading from cache
   - Installing sebastian/recursion-context (4.0.0): Loading from cache
@@ -116,11 +113,12 @@ Prefetching 14 packages
   - Installing symfony/http-client-contracts (v2.0.1): Loading from cache
   - Installing symfony/http-client (v5.0.8): Loading from cache
   - Installing symfony/phpunit-bridge (v5.0.8): Loading from cache
+    Skipped installation of bin bin/simple-phpunit for package symfony/phpunit-bridge: name conflicts with an existing file
   - Installing symfony/css-selector (v5.0.8): Loading from cache
   - Installing symfony/browser-kit (v5.0.8): Loading from cache
   - Installing symfony/test-pack (v1.0.6): Loading from cache
 Generating autoload files
-59 packages you are using are looking for funding.
+60 packages you are using are looking for funding.
 Use the composer fund command to find out more!
 Executing script cache:clear [OK]
 Executing script assets:install public [OK]
