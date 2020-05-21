@@ -10,6 +10,7 @@
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "doctrine/doctrine-migrations-bundle": "^2.1",
         "gedmo/doctrine-extensions": "^2.4",
+        "gesdinet/jwt-refresh-token-bundle": "^0.9.1",
         "lexik/jwt-authentication-bundle": "^2.6",
         "phpmailer/phpmailer": "^6.1",
         "symfony/console": "5.0.*",

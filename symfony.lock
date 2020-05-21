@@ -119,6 +119,9 @@
     "gedmo/doctrine-extensions": {
         "version": "v2.4.41"
     },
+    "gesdinet/jwt-refresh-token-bundle": {
+        "version": "v0.9.1"
+    },
     "hautelook/alice-bundle": {
         "version": "2.1",
         "recipe": {

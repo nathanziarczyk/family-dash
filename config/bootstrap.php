@@ -3,10 +3,10 @@
 use Symfony\Component\Dotenv\Dotenv;
 
 // TODO DEV
-//require dirname(__DIR__).'/vendor/autoload.php';
+require dirname(__DIR__).'/vendor/autoload.php';
 
 // TODO PROD
-require dirname(__DIR__).'/vendor/autoload.php';
+//require dirname(__DIR__).'/vendor/autoload.php';
 
 if (!class_exists(Dotenv::class)) {
     throw new LogicException('Please run "composer require symfony/dotenv" to load the ".env" files configuring the application.');
