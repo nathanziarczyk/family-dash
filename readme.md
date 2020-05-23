@@ -16,5 +16,5 @@ Dit is de API voor mijn eindwerk voor de opleiding **Full Stack Developer** op *
 
 ## Front End App
 
-[Github Repo](https://github.com/nathanziarczyk/family-dash) <br/>
+[Github Repo](https://github.com/nathanziarczyk/family-dash-frontend) <br/>
 [Web App](https://familydash.surge.sh)
