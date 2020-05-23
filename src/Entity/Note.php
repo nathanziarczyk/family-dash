@@ -32,6 +32,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     denormalizationContext={"groups"={"note:write"}},
  * )
  * @ORM\Entity(repositoryClass=NoteRepository::class)
+ * @ORM\EntityListeners({"App\Doctrine\NoteEntityListener"})
  */
 class Note
 {
@@ -82,7 +83,6 @@ class Note
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="notes")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank()
      * @Groups({"note:read", "note:write"})
      */
     private $user;

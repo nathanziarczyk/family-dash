@@ -36,6 +36,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * )
  * @ApiFilter(PropertyFilter::class)
  * @ORM\Entity(repositoryClass=EventRepository::class)
+ * @ORM\EntityListeners({"App\Doctrine\EventEntityListener"})
  */
 class Event
 {
@@ -93,7 +94,6 @@ class Event
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="createdEvents")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"event:read", "event:write", "group:read"})
-     * @Assert\NotBlank()
      */
     private $user;
 

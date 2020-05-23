@@ -39,3 +39,12 @@ services:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
             - [ setAnnotationReader, [ '@annotation_reader' ] ]
+
+    App\Doctrine\EventEntityListener:
+        tags: ['doctrine.orm.entity_listener']
+
+    App\Doctrine\NoteEntityListener:
+        tags: ['doctrine.orm.entity_listener']
+
+#    App\Doctrine\EventEntityListener:
+#        tags: ['doctrine.orm.entity_listener']

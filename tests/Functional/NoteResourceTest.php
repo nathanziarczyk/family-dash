@@ -74,8 +74,7 @@ class NoteResourceTest extends CustomApiTestCase
                 'title' => 'test',
                 'body' => '<p>This is a paragraph.</p>
                            <p>This is another paragraph.</p>',
-                'groep' => '/api/groups/1',
-                'user' => '/api/users/1'
+                'groep' => '/api/groups/1'
             ]
         ]);
         self::assertResponseIsSuccessful();
@@ -89,7 +88,6 @@ class NoteResourceTest extends CustomApiTestCase
                 'body' => '<p>This is a paragraph.</p>
                            <p>This is another paragraph.</p>',
                 'groep' => '/api/groups/1',
-                'user' => '/api/users/1'
             ]
         ]);
         self::assertResponseStatusCodeSame(403);
