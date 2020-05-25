@@ -73,9 +73,9 @@ class Group implements ObjectManagerAware
     private $postGroupMembers;
 
     /**
-     * @ORM\OneToMany(targetEntity=GroupMember::class, mappedBy="groep")
+     * @ORM\OneToMany(targetEntity=GroupMember::class, mappedBy="groep", cascade={"remove"})
      */
-    private $groupMembers;
+    public $groupMembers;
 
     /**
      * @ORM\OneToMany(targetEntity=Event::class, mappedBy="groep")
@@ -103,6 +103,10 @@ class Group implements ObjectManagerAware
      */
     private $user;
 
+    public function __toString()
+    {
+        return (string)$this->getName();
+    }
 
     public function injectObjectManager(ObjectManager $objectManager, ClassMetadata $classMetadata): void
     {

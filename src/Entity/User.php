@@ -99,7 +99,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity=GroupMember::class, mappedBy="user")
      */
-    private $groupMembers;
+    public $groupMembers;
 
     /**
      * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="attendants")
@@ -126,6 +126,7 @@ class User implements UserInterface
      */
     private $createdEvents;
 
+
     public function __construct()
     {
         $this->groupMembers = new ArrayCollection();
@@ -134,6 +135,11 @@ class User implements UserInterface
         $this->shoppingListItems = new ArrayCollection();
         $this->invitations = new ArrayCollection();
         $this->createdEvents = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return (string)$this->getEmail();
     }
 
     public function getId(): ?int
@@ -283,6 +289,17 @@ class User implements UserInterface
             }
         }
         return new ArrayCollection($groups);
+    }
+
+    public function getAdminGroups()
+    {
+        $groups = array();
+        foreach($this->groupMembers as $group){
+            if($group->getAccepted() === true){
+                $groups[] = $group->getGroep();
+            }
+        }
+        return $groups;
     }
 
     /**

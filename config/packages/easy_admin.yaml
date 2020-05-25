@@ -1,6 +1,73 @@
 easy_admin:
+
+    design:
+        menu:
+            - {label: "Tabels"}
+            - label: "Users"
+              children:
+                    - {entity: User, label: "Users List", icon: "th-list"}
+            - label: "Groups"
+              children:
+                    - {entity: Group, label: "Groups List", icon: "th-list"}
+
     entities:
-        # List the entity class name you want to manage
-        - App\Entity\User
-        - App\Entity\Group
+        User:
+          class: App\Entity\User
+          form:
+            fields:
+              - id
+              - email
+              - firstName
+              - lastName
+
+          list:
+            fields:
+              - id
+              - email
+              - firstName
+              - lastName
+              - isEnabled
+
+          show:
+            fields:
+              - id
+              - email
+              - firstName
+              - lastName
+              - isEnabled
+              -
+                property: 'adminGroups'
+                label: 'Groups'
+                type: 'array'
+        Group:
+          class: App\Entity\Group
+          form:
+            fields:
+              - id
+              - name
+              - property: 'groupMembers'
+                label: 'Members'
+                type: 'collection'
+          list:
+            fields:
+              - id
+              - name
+          show:
+            fields:
+              - id
+              - name
+              - property: 'groupMembers'
+                label: 'Members'
+                type: 'array'
+
     site_name: 'FamilyDash Admin'
+
+    list:
+      collapse_actions: true
+      actions: ['show', 'edit', 'delete']
+      batch_actions: ['delete']
+
+    user:
+        display_name: true
+        display_avatar: true
+        name_property_path: 'firstName'

@@ -46,6 +46,13 @@ class GroupMember
      */
     private $accepted = false;
 
+    public function __toString()
+    {
+        $groupName= $this->getGroep()->getName();
+        $userEmail = $this->getUser()->getEmail();
+        return "$groupName: $userEmail";
+    }
+
     public function getId(): ?int
     {
         return $this->id;

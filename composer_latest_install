@@ -2,7 +2,7 @@ ocramius/package-versions: Generating version class...
 ocramius/package-versions: ...done generating version class
 
 e
-Package operations: 112 installs, 0 updates, 0 removals
+Package operations: 120 installs, 0 updates, 0 removals
   - Installing ocramius/package-versions (1.5.1): Loading from cache
   - Installing symfony/flex (v1.6.3): Loading from cache
   - Installing symfony/translation-contracts (v2.0.1): Loading from cache
@@ -82,11 +82,19 @@ Package operations: 112 installs, 0 updates, 0 removals
   - Installing ocramius/proxy-manager (2.2.3): Loading from cache
   - Installing doctrine/migrations (2.2.1): Loading from cache
   - Installing doctrine/doctrine-migrations-bundle (2.1.2): Loading from cache
+  - Installing symfony/translation (v5.0.8): Loading from cache
+  - Installing symfony/options-resolver (v5.0.8): Loading from cache
+  - Installing symfony/intl (v5.0.8): Loading from cache
+  - Installing symfony/polyfill-intl-icu (v1.17.0): Loading from cache
+  - Installing symfony/form (v5.0.8): Loading from cache
+  - Installing pagerfanta/pagerfanta (v2.1.3): Loading from cache
+  - Installing easycorp/easyadmin-bundle (v2.3.8): Loading from cache
   - Installing behat/transliterator (v1.3.0): Loading from cache
   - Installing gedmo/doctrine-extensions (v2.4.41): Loading from cache
   - Installing namshi/jose (7.2.3): Loading from cache
   - Installing lcobucci/jwt (3.3.1): Loading from cache
   - Installing lexik/jwt-authentication-bundle (v2.6.5): Loading from cache
+  - Installing gesdinet/jwt-refresh-token-bundle (v0.9.1): Downloading (connecting...)Downloading (100%)         
   - Installing phpmailer/phpmailer (v6.1.5): Loading from cache
   - Installing symfony/dotenv (v5.0.8): Loading from cache
   - Installing nikic/php-parser (v4.4.0): Loading from cache
@@ -118,7 +126,7 @@ Package operations: 112 installs, 0 updates, 0 removals
   - Installing symfony/browser-kit (v5.0.8): Loading from cache
   - Installing symfony/test-pack (v1.0.6): Loading from cache
 Generating autoload files
-60 packages you are using are looking for funding.
+66 packages you are using are looking for funding.
 Use the composer fund command to find out more!
 Executing script cache:clear [OK]
 Executing script assets:install public [OK]
