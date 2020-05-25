@@ -74,7 +74,8 @@ class CustomApiTestCase extends ApiTestCase
             'auth_bearer' => $this->getJwtAuth(),
             'headers' => ['Content-Type' => 'application/json'],
             'json' => [
-                'name' => $name
+                'name' => $name,
+                'postGroupMembers' => []
             ]
         ]);
     }
