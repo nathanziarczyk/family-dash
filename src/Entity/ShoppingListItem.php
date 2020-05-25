@@ -27,6 +27,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     denormalizationContext={"groups"={"shoppingListItem:write"}},
  * )
  * @ORM\Entity(repositoryClass=ShoppingListItemRepository::class)
+ * @ORM\EntityListeners({"App\Doctrine\ShoppingListItemEntityListener"})
  */
 class ShoppingListItem
 {

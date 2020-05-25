@@ -45,9 +45,10 @@ use App\Controller\GetGroupsController;
  *     normalizationContext={"groups"={"group:read"}},
  *     denormalizationContext={"groups"={"group:write"}},
  * )
+ * @ApiFilter(PropertyFilter::class)
  * @ORM\Entity(repositoryClass=GroupRepository::class)
  * @ORM\Table(name="`group`")
- * @ApiFilter(PropertyFilter::class)
+ * @ORM\EntityListeners({"App\Doctrine\GroupEntityListener"})
  */
 class Group implements ObjectManagerAware
 {

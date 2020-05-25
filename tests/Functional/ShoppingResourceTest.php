@@ -92,7 +92,6 @@ class ShoppingResourceTest extends CustomApiTestCase
             'json' => [
                 'title' => 'test Shopping list Item',
                 'shoppingList' => '/api/shopping_lists/1',
-                'user' => '/api/users/1'
             ]
         ]);
         self::assertResponseIsSuccessful();
@@ -116,7 +115,6 @@ class ShoppingResourceTest extends CustomApiTestCase
             'json' => [
                 'title' => 'test Shopping list Item',
                 'shoppingList' => '/api/shopping_lists/1',
-                'user' => '/api/users/2'
             ]
         ]);
         self::assertResponseStatusCodeSame(403);

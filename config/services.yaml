@@ -46,5 +46,8 @@ services:
     App\Doctrine\NoteEntityListener:
         tags: ['doctrine.orm.entity_listener']
 
-#    App\Doctrine\EventEntityListener:
-#        tags: ['doctrine.orm.entity_listener']
+    App\Doctrine\GroupEntityListener:
+        tags: ['doctrine.orm.entity_listener']
+
+    App\Doctrine\ShoppingListItemEntityListener:
+        tags: ['doctrine.orm.entity_listener']
