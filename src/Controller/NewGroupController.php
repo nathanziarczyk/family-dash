@@ -37,6 +37,9 @@ class NewGroupController extends AbstractController
         $content = json_decode($request->getContent(), false);
         $user = $this->tokenStorage->getToken()->getUser();
         $groupName = $content->name;
+        $postGroupMembers = $content->postGroupMembers;
+        $repo = $this->getDoctrine()->getRepository(User::class);
+
 
         $group = new Group();
         $group->setName($groupName);
@@ -48,6 +51,17 @@ class NewGroupController extends AbstractController
         $groupMember->setGroep($group);
         $groupMember->setAccepted(true);
         $em->persist($groupMember);
+
+        if (!empty($postGroupMembers)){
+            foreach ($postGroupMembers as $groupMember){
+                $user = $repo->findOneBy(['id'=>$groupMember]);
+                $groupMember = new GroupMember();
+                $groupMember->setUser($user);
+                $groupMember->setGroep($group);
+                $em->persist($groupMember);
+            }
+        }
+
         $em->flush();
 
         return $group;

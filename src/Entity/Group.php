@@ -68,6 +68,11 @@ class Group implements ObjectManagerAware
     private $name;
 
     /**
+     * @Groups({ "group:write"})
+     */
+    private $postGroupMembers;
+
+    /**
      * @ORM\OneToMany(targetEntity=GroupMember::class, mappedBy="groep")
      */
     private $groupMembers;
@@ -125,6 +130,18 @@ class Group implements ObjectManagerAware
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getPostGroupMembers()
+    {
+        return $this->postGroupMembers;
+    }
+
+    public function setPostGroupMembers(array $postGroupMembers): self
+    {
+        $this->postGroupMembers = $postGroupMembers;
 
         return $this;
     }
@@ -242,4 +259,5 @@ class Group implements ObjectManagerAware
 
         return $this;
     }
+
 }
