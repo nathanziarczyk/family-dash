@@ -106,8 +106,6 @@ class User implements UserInterface
      */
     private $events;
 
-    private $encoder;
-
     /**
      * @ORM\OneToMany(targetEntity=Note::class, mappedBy="user")
      */

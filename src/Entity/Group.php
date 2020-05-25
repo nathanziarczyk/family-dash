@@ -91,6 +91,12 @@ class Group implements ObjectManagerAware
      */
     private $em;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @Assert\NotBlank()
+     */
+    private $user;
+
 
     public function injectObjectManager(ObjectManager $objectManager, ClassMetadata $classMetadata): void
     {
@@ -222,5 +228,17 @@ class Group implements ObjectManagerAware
     public function getShoppingLists(): Collection
     {
         return $this->shoppingLists;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }
