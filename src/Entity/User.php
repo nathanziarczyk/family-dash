@@ -311,7 +311,8 @@ class User implements UserInterface
         if ($this->groupMembers->isEmpty()) return new ArrayCollection();
         foreach($this->groupMembers as $group){
             if ($group->getAccepted() === false){
-                $invitations[] = $group->getGroep();
+                $invite = ['groupMemberId' => $group->getId(), 'group' => $group->getGroep()];
+                $invitations[] = $invite;
             }
         }
         $this->invitations = new ArrayCollection($invitations);
