@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     "post"
  *      },
  *     itemOperations={
+ *     "get",
  *     "delete"
  *      },
  * )

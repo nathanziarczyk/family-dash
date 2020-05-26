@@ -32,7 +32,7 @@ use App\Controller\GetGroupsController;
  *     },
  *     itemOperations={
  *     "get"={
- *          "security" = "is_granted('ROLE_USER') and user.getGroups().contains(object)",
+ *          "security" = "is_granted('ROLE_USER') and user.getGroups().contains(object) or user.getInvitations().contains(object)",
  *     },
  *     "put" = {
  *          "denormalization_context"={"groups"={"group:item:put"}},
