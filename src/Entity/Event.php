@@ -14,7 +14,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
+ *     attributes={"order"={"start": "ASC"}},
  *     collectionOperations={
+ *     "get",
  *     "post"={
  *          "security_post_denormalize"="is_granted('ROLE_USER') and user.getGroups().contains(object.getGroep())"
  *          },

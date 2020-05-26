@@ -79,6 +79,7 @@ class Group implements ObjectManagerAware
 
     /**
      * @ORM\OneToMany(targetEntity=Event::class, mappedBy="groep")
+     * @ORM\OrderBy({"start"="ASC"})
      */
     private $events;
 
