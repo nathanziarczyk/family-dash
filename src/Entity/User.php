@@ -45,7 +45,7 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"user:read"})
+     * @Groups({"user:read", "group:read"})
      */
     private $id;
 
@@ -311,7 +311,7 @@ class User implements UserInterface
         if ($this->groupMembers->isEmpty()) return new ArrayCollection();
         foreach($this->groupMembers as $group){
             if ($group->getAccepted() === false){
-                $invite = ['groupMemberId' => $group->getId(), 'group' => $group->getGroep()];
+                $invite = ['group' => $group->getGroep(), 'groupMember' => $group];
                 $invitations[] = $invite;
             }
         }
@@ -329,8 +329,8 @@ class User implements UserInterface
     {
         $invitations = $this->getInvitations();
         foreach ($invitations as $invitation){
-            if($invitation->getGroep()->getId() === $group->getId()){
-                $invitation->setAccepted(true);
+            if($invitation['group']->getId() === $group->getId()){
+                $invitation['groupMember']->setAccepted(true);
                 $this->invitations->removeElement($invitation);
             }
         }

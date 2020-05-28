@@ -100,6 +100,7 @@ class Group implements ObjectManagerAware
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
+     * @Groups({ "group:read"})
      * @Assert\NotBlank()
      */
     private $user;
