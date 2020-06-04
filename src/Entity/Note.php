@@ -41,33 +41,33 @@ class Note
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"group:read", "note:read"})
+     * @Groups({"group:item:read", "note:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
-     * @Groups({"group:read", "note:read", "note:write", "note:item:put"})
+     * @Groups({"group:item:read", "note:read", "note:write", "note:item:put"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
-     * @Groups({"group:read", "note:read", "note:write", "note:item:put"})
+     * @Groups({"group:item:read", "note:read", "note:write", "note:item:put"})
      */
     private $body;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"group:read", "note:read"})
+     * @Groups({"group:item:read", "note:read"})
      */
     private $shortBody;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"group:read", "note:read"})
+     * @Groups({"group:item:read", "note:read"})
      * @Gedmo\Timestampable(on="create")
      */
     private $created;
@@ -83,7 +83,7 @@ class Note
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="notes")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"note:read", "note:write", "group:read"})
+     * @Groups({"note:read", "note:write", "group:item:read"})
      */
     private $user;
 

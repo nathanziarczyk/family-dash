@@ -75,6 +75,7 @@ class Group implements ObjectManagerAware
 
     /**
      * @ORM\OneToMany(targetEntity=GroupMember::class, mappedBy="groep", cascade={"remove"})
+     * @Groups({"group:item:read"})
      */
     public $groupMembers;
 
@@ -87,11 +88,13 @@ class Group implements ObjectManagerAware
 
     /**
      * @ORM\OneToMany(targetEntity=Note::class, mappedBy="groep")
+     * @Groups({"group:item:read"})
      */
     private $notes;
 
     /**
      * @ORM\OneToMany(targetEntity=ShoppingList::class, mappedBy="groep")
+     * @Groups({"group:item:read"})
      */
     private $shoppingLists;
 
