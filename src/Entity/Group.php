@@ -32,6 +32,7 @@ use App\Controller\GetGroupsController;
  *     },
  *     itemOperations={
  *     "get"={
+ *          "normalization_context"={"groups"={"group:item:read"}},
  *          "security" = "is_granted('ROLE_USER') and user.getGroups().contains(object) or user.getInvitations().contains(object)",
  *     },
  *     "put" = {
@@ -56,13 +57,13 @@ class Group implements ObjectManagerAware
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"group:read"})
+     * @Groups({"group:read", "group:item:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"group:read", "group:write", "group:item:put"})
+     * @Groups({"group:read", "group:write", "group:item:put", "group:item:read"})
      * @Assert\NotBlank()
      */
     private $name;
@@ -78,8 +79,9 @@ class Group implements ObjectManagerAware
     public $groupMembers;
 
     /**
-     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="groep")
+     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="groep", cascade={"remove"})
      * @ORM\OrderBy({"start"="ASC"})
+     * @Groups({"group:item:read"})
      */
     private $events;
 
@@ -100,7 +102,7 @@ class Group implements ObjectManagerAware
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
-     * @Groups({ "group:read"})
+     * @Groups({"group:read"})
      * @Assert\NotBlank()
      */
     private $user;
@@ -176,9 +178,8 @@ class Group implements ObjectManagerAware
     /**
      * @Groups({"group:item:put"})
      * @param User $user
-     * @return ArrayCollection
      */
-    public function setAddGroupMember(User $user): ArrayCollection
+    public function setAddGroupMember(User $user)
     {
         $groupMember = new GroupMember();
         $groupMember->setGroep($this);

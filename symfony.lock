@@ -598,6 +598,9 @@
     "twig/twig": {
         "version": "v3.0.3"
     },
+    "urodoz/truncate-html": {
+        "version": "1.0.1"
+    },
     "webmozart/assert": {
         "version": "1.8.0"
     },

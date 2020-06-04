@@ -8,6 +8,7 @@ use ApiPlatform\Core\DataPersister\DataPersisterInterface;
 use App\Entity\Note;
 use App\Helper\ShortenHtmlTrait;
 use Doctrine\ORM\EntityManagerInterface;
+use Urodoz\Truncate\TruncateService;
 
 class NoteDataPersister implements DataPersisterInterface
 {
@@ -31,12 +32,13 @@ class NoteDataPersister implements DataPersisterInterface
      */
     public function persist($data)
     {
+        $truncate = new TruncateService();
         if ($data->getBody()){
-            if (strlen($data->getBody()) <= 50){
+            if (strlen($data->getBody()) <= 100){
                 $data->setShortBody($data->getBody());
             } else {
                 $data->setShortBody(
-                    $this->truncate($data->getBody(), 50, '...')
+                    $truncate->truncate($data->getBody(), 100)
                 );
             }
         }

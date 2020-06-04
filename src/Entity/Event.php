@@ -30,7 +30,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          "denormalization_context"={"groups"={"event:item:put"}}
  *          },
  *     "delete"={
- *          "security"="is_granted('ROLE_USER') and object.getUser() = user",
+ *          "security"="is_granted('ROLE_USER') and object.getUser() == user",
  *          },
  *      },
  *     normalizationContext={"groups"={"event:read"}},
@@ -46,34 +46,34 @@ class Event
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"event:read"})
+     * @Groups({"event:read", "group:item:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"event:read", "event:write", "event:item:put", "group:read"})
+     * @Groups({"event:read", "event:write", "event:item:put", "group:item:read"})
      * @Assert\NotBlank()
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"event:read", "event:write", "event:item:put", "group:read"})
+     * @Groups({"event:read", "event:write", "event:item:put", "group:item:read"})
      * * @Assert\NotBlank()
      */
     private $description;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"event:read", "event:write", "event:item:put", "group:read"})
+     * @Groups({"event:read", "event:write", "event:item:put", "group:item:read"})
      * * @Assert\NotBlank()
      */
     private $start;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"event:read", "event:write", "event:item:put", "group:read"})
+     * @Groups({"event:read", "event:write", "event:item:put", "group:item:read"})
      * * @Assert\NotBlank()
      */
     private $end;
@@ -88,25 +88,20 @@ class Event
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, inversedBy="events")
-     * @Groups({"event:read", "group:read", "user:read"})
+     * @Groups({"event:read", "group:item:read", "user:read"})
      */
     private $attendants;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="createdEvents")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"event:read", "event:write", "group:read"})
+     * @Groups({"event:read", "event:write", "group:item:read"})
      */
     private $user;
 
     public function __construct()
     {
         $this->attendants = new ArrayCollection();
-    }
-
-    public function __toString()
-    {
-        return "$this->id: $this->title";
     }
 
     public function getId(): ?int

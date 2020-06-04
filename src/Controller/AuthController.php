@@ -29,7 +29,7 @@ class AuthController extends AbstractController
         $user->setFirstName($firstName);
         $user->setLastName($lastName);
         $user->setRegKey('renew');
-        $link = 'https://wdev.be/wdev_nathan/confirm-email?regkey='.$user->getRegKey();
+        $link = 'https://wdev.be/wdev_nathan/eindwerk/confirm-email?regkey='.$user->getRegKey();
 
         $em->persist($user);
         try {
@@ -39,7 +39,7 @@ class AuthController extends AbstractController
             return $this->json(['error' => $exception->getMessage()], 500);
         }
         $this->sendMail($email, $link );
-        return $this->json(sprintf('User created'));
+        return $this->json(sprintf('User created'),'201', ['access-control-allow-origin'=>'*']);
     }
 
     /**

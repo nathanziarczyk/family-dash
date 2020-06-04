@@ -45,7 +45,7 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"user:read", "group:read"})
+     * @Groups({"user:read", "group:read", "event:read", "note:read"})
      */
     private $id;
 
@@ -72,7 +72,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user:read", "user:write", "note:read"})
+     * @Groups({"user:read", "user:write", "note:read", "event:read"})
      * @Assert\NotBlank()
      */
     private $firstName;

@@ -2,7 +2,7 @@ ocramius/package-versions: Generating version class...
 ocramius/package-versions: ...done generating version class
 
 e
-Package operations: 120 installs, 0 updates, 0 removals
+Package operations: 121 installs, 0 updates, 0 removals
   - Installing ocramius/package-versions (1.5.1): Loading from cache
   - Installing symfony/flex (v1.6.3): Loading from cache
   - Installing symfony/translation-contracts (v2.0.1): Loading from cache
@@ -94,7 +94,7 @@ Package operations: 120 installs, 0 updates, 0 removals
   - Installing namshi/jose (7.2.3): Loading from cache
   - Installing lcobucci/jwt (3.3.1): Loading from cache
   - Installing lexik/jwt-authentication-bundle (v2.6.5): Loading from cache
-  - Installing gesdinet/jwt-refresh-token-bundle (v0.9.1): Downloading (connecting...)Downloading (100%)         
+  - Installing gesdinet/jwt-refresh-token-bundle (v0.9.1): Loading from cache
   - Installing phpmailer/phpmailer (v6.1.5): Loading from cache
   - Installing symfony/dotenv (v5.0.8): Loading from cache
   - Installing nikic/php-parser (v4.4.0): Loading from cache
@@ -103,6 +103,7 @@ Package operations: 120 installs, 0 updates, 0 removals
   - Installing symfony/monolog-bridge (v5.0.8): Loading from cache
   - Installing symfony/serializer-pack (v1.0.3): Loading from cache
   - Installing symfony/yaml (v5.0.8): Loading from cache
+  - Installing urodoz/truncate-html (1.0.1): Downloading (connecting...)Downloading (100%)         
   - Installing fzaninotto/faker (v1.9.1): Loading from cache
   - Installing sebastian/recursion-context (4.0.0): Loading from cache
   - Installing sebastian/exporter (4.0.0): Loading from cache

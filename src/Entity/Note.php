@@ -83,7 +83,7 @@ class Note
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="notes")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"note:read", "note:write"})
+     * @Groups({"note:read", "note:write", "group:read"})
      */
     private $user;
 
