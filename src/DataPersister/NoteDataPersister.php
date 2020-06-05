@@ -34,11 +34,11 @@ class NoteDataPersister implements DataPersisterInterface
     {
         $truncate = new TruncateService();
         if ($data->getBody()){
-            if (strlen($data->getBody()) <= 50){
+            if (strlen($data->getBody()) <= 80){
                 $data->setShortBody($data->getBody());
             } else {
                 $data->setShortBody(
-                    $truncate->truncate($data->getBody(), 50)
+                    $truncate->truncate($data->getBody(), 80)
                 );
             }
         }
