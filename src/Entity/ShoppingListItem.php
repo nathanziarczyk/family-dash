@@ -35,19 +35,19 @@ class ShoppingListItem
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"shoppingListItem:read", "shoppingList:read"})
+     * @Groups({"shoppingListItem:read", "shoppingList:read", "group:item:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"shoppingListItem:read", "shoppingListItem:write", "shoppingList:write", "shoppingList:read"})
+     * @Groups({"shoppingListItem:read", "shoppingListItem:write", "shoppingList:write", "shoppingList:read", "group:item:read"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"shoppingListItem:read", "shoppingList:read"})
+     * @Groups({"shoppingListItem:read", "shoppingList:read", "group:item:read"})
      * @Gedmo\Timestampable(on="create")
      */
     private $created;
@@ -62,7 +62,7 @@ class ShoppingListItem
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="shoppingListItems")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"shoppingListItem:read", "shoppingListItem:write", "shoppingList:read"})
+     * @Groups({"shoppingListItem:read", "shoppingListItem:write", "shoppingList:read", "group:item:read"})
      */
     private $user;
 
