@@ -36,13 +36,13 @@ class ShoppingList
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"group:item:read"})
+     * @Groups({"group:item:read", "shoppingList:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"group:item:read", "shoppingList:write"})
+     * @Groups({"group:item:read", "shoppingList:write", "shoppingList:read"})
      */
     private $title;
 
@@ -55,14 +55,14 @@ class ShoppingList
 
     /**
      * @ORM\OneToMany(targetEntity=ShoppingListItem::class, mappedBy="shoppingList")
-     * @Groups({"group:item:read"})
+     * @Groups({"group:item:read", "shoppingList:read"})
      */
     private $shoppingListItems;
 
     /**
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
-     * @Groups({"group:item:read"})
+     * @Groups({"group:item:read", "shoppingList:read"})
      */
     private $created;
 
