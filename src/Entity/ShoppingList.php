@@ -12,6 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
+ *     attributes={"order"={"created": "DESC"}},
  *     collectionOperations={
  *     "post"={
  *          "security_post_denormalize"="is_granted('ROLE_USER') and user.getGroups().contains(object.getGroep())"
