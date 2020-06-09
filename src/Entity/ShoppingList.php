@@ -7,6 +7,7 @@ use App\Repository\ShoppingListRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -56,6 +57,13 @@ class ShoppingList
      * @Groups({"group:item:read"})
      */
     private $shoppingListItems;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     * @Groups({"group:item:read"})
+     */
+    private $created;
 
     public function __construct()
     {
@@ -118,6 +126,18 @@ class ShoppingList
                 $shoppingListItem->setShoppingList(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?\DateTimeInterface $created): self
+    {
+        $this->created = $created;
 
         return $this;
     }
