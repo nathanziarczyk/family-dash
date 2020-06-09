@@ -66,6 +66,12 @@ class ShoppingListItem
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=ShoppingCategories::class, inversedBy="shoppingListItems")
+     * @Groups({"shoppingListItem:read", "shoppingListItem:write", "shoppingList:read", "group:item:read" })
+     */
+    private $category;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -108,6 +114,18 @@ class ShoppingListItem
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCategory(): ?ShoppingCategories
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?ShoppingCategories $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }
