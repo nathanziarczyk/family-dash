@@ -35,7 +35,7 @@ class AuthController extends AbstractController
         try {
             $em->flush();
         } catch (\Exception $exception) {
-            if($exception->getPrevious()->getCode() === '23000') return $this->json(['error' => 'Duplicate entry for email'], 409);;
+            if($exception->getPrevious()->getCode() === '23000') return $this->json(['error' => 'Duplicate entry for email'], 409);
             return $this->json(['error' => $exception->getMessage()], 500);
         }
         $this->sendMail($email, $link );

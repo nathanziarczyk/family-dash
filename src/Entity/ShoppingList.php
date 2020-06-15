@@ -54,7 +54,7 @@ class ShoppingList
     private $groep;
 
     /**
-     * @ORM\OneToMany(targetEntity=ShoppingListItem::class, mappedBy="shoppingList")
+     * @ORM\OneToMany(targetEntity=ShoppingListItem::class, mappedBy="shoppingList", cascade={"remove"})
      * @Groups({"group:item:read", "shoppingList:read"})
      */
     private $shoppingListItems;

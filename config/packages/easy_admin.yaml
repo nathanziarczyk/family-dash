@@ -9,6 +9,10 @@ easy_admin:
             - label: "Groups"
               children:
                     - {entity: Group, label: "Groups List", icon: "th-list"}
+        brand_color: "#009688"
+        assets:
+          css:
+            - 'css/admin.css'
 
     entities:
         User:
@@ -19,6 +23,7 @@ easy_admin:
               - email
               - firstName
               - lastName
+              - { property: 'roles', type: 'Symfony\Component\Form\Extension\Core\Type\CollectionType'}
 
           list:
             fields:

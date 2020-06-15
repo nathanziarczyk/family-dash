@@ -59,14 +59,6 @@ class ShoppingCategories
         return $this;
     }
 
-    /**
-     * @return Collection|ShoppingListItem[]
-     */
-    public function getShoppingListItems(): Collection
-    {
-        return $this->shoppingListItems;
-    }
-
     public function addShoppingListItem(ShoppingListItem $shoppingListItem): self
     {
         if (!$this->shoppingListItems->contains($shoppingListItem)) {
